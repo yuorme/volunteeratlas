@@ -83,8 +83,7 @@ def get_popup_html(row):
         , max_width = 200
     ) 
 
-
-# In[17]:
+# In[4]:
 
 
 result = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:R10000000')
@@ -110,7 +109,7 @@ m = folium.Map(
 
 #add marker cluster
 mc = MarkerCluster(
-    name='Volunteers', 
+    name='Volunteer Locations', 
     control=True)
 
 #add circle markers
@@ -126,12 +125,9 @@ for idx, row in df.iterrows():
         )
     ).add_to(m)
 
-#add layer control
-folium.LayerControl(
-    collapsed=True
-).add_to(m)
+mc.add_to(m)
+folium.LayerControl(collapsed=False).add_to(m)
 
-#add location control
 LocateControl(
     flyTo=True, 
     keepCurrentZoomLevel=True,
@@ -139,22 +135,3 @@ LocateControl(
 ).add_to(m)
 
 m.save('index.html')
-
-
-# In[16]:
-
-
-m
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-

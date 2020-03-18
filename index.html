@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_2c63efd4a00a44cb9cf676ff0fcabf1a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_2c63efd4a00a44cb9cf676ff0fcabf1a" ></div>
+        
+</body>
+<script>    
+    
+            var map_2c63efd4a00a44cb9cf676ff0fcabf1a = L.map(
+                "map_2c63efd4a00a44cb9cf676ff0fcabf1a",
+                {
+                    center: [45.53, -73.58],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_2c63efd4a00a44cb9cf676ff0fcabf1a);
+
+            
+
+        
+    
+            var tile_layer_0813a0bb2b9b426298e8ba9861152431 = L.tileLayer(
+                "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
+                {"attribution": "Map tiles by \u003ca href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_2c63efd4a00a44cb9cf676ff0fcabf1a);
+        
+    
+            var marker_cluster_1dcb575a8c6c45739afc79c98597ab8c = L.markerClusterGroup(
+                {}
+            );
+            map_2c63efd4a00a44cb9cf676ff0fcabf1a.addLayer(marker_cluster_1dcb575a8c6c45739afc79c98597ab8c);
+        
+    
+            var circle_5347a16b2f4e42c7b651bbba95d782c1 = L.circle(
+                [45.529775461996, -73.58028829774976],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_1dcb575a8c6c45739afc79c98597ab8c);
+        
+    
+        var popup_d2947259d714413f856512188c88b073 = L.popup({"maxWidth": 200});
+
+        
+            var html_1a0218d1ef7941999dac41e981193796 = $(`<div id="html_1a0218d1ef7941999dac41e981193796" style="width: 100.0%; height: 100.0%;"><b>Name:</b> <a href='https://www.facebook.com/meoryu' target='_blank'>David Yu</a> <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Area:</b> Plateau <br><b>Availability:</b> Tuesday, Friday, Saturday, Sunday <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Cheque, Electronic Transfer (Interac, Venmo etc.) <br><b>Email:</b> <a href='mailto:yuorme@gmail.com' target='_blank'>yuorme@gmail.com</a> <br></div>`)[0];
+            popup_d2947259d714413f856512188c88b073.setContent(html_1a0218d1ef7941999dac41e981193796);
+        
+
+        circle_5347a16b2f4e42c7b651bbba95d782c1.bindPopup(popup_d2947259d714413f856512188c88b073)
+        ;
+
+        
+    
+    
+            var circle_1527b19b78b2488487b6271ec56b51cc = L.circle(
+                [45.533775461996, -73.56148829774976],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_1dcb575a8c6c45739afc79c98597ab8c);
+        
+    
+        var popup_8adce281fa0a4de392629791b725c6c3 = L.popup({"maxWidth": 200});
+
+        
+            var html_ab0bd3f735204d3f897a5f6c93129ab6 = $(`<div id="html_ab0bd3f735204d3f897a5f6c93129ab6" style="width: 100.0%; height: 100.0%;"><b>Name:</b> <a href='https://www.facebook.com/gioele.antoci' target='_blank'>Gioele Antoci</a> <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Area:</b> Plateau  <br><b>Availability:</b> Friday, Saturday, Sunday <br><b>Languages:</b> English, Italian <br><b>Payment:</b> Cash <br><b>Email:</b> <a href='mailto:gioele.antoci@gmail.com' target='_blank'>gioele.antoci@gmail.com</a> <br></div>`)[0];
+            popup_8adce281fa0a4de392629791b725c6c3.setContent(html_ab0bd3f735204d3f897a5f6c93129ab6);
+        
+
+        circle_1527b19b78b2488487b6271ec56b51cc.bindPopup(popup_8adce281fa0a4de392629791b725c6c3)
+        ;
+
+        
+    
+    
+            var layer_control_3e4a1b0c2f444b2db37bb51d4572a96a = {
+                base_layers : {
+                    "stamenterrain" : tile_layer_0813a0bb2b9b426298e8ba9861152431,
+                },
+                overlays :  {
+                    "Volunteers" : marker_cluster_1dcb575a8c6c45739afc79c98597ab8c,
+                },
+            };
+            L.control.layers(
+                layer_control_3e4a1b0c2f444b2db37bb51d4572a96a.base_layers,
+                layer_control_3e4a1b0c2f444b2db37bb51d4572a96a.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_2c63efd4a00a44cb9cf676ff0fcabf1a);
+        
+    
+            var locate_control_15436aa4fc574018af4b4e421c262c34 = L.control.locate(
+                {"flyTo": true, "keepCurrentZoomLevel": true, "showPopup": true}
+            ).addTo(map_2c63efd4a00a44cb9cf676ff0fcabf1a);
+        
+</script>

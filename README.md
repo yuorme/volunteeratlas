@@ -1,4 +1,4 @@
-## Volunteer Atlas
+## VolunteerAtlas
 
 Building an easy to use, central repository of volunteers willing to help deliver essential supplies to vulnerable individuals or those under self-quarantine. Very much a work in progress currently consisting of two parts:
 

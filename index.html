@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_6be2389e75094bff9f0dd4f0a68a846f {
+                #map_49e1438ac76d4c41b934424427417fe2 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -40,151 +40,151 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_6be2389e75094bff9f0dd4f0a68a846f" ></div>
+            <div class="folium-map" id="map_49e1438ac76d4c41b934424427417fe2" ></div>
         
 </body>
 <script>    
     
-            var map_6be2389e75094bff9f0dd4f0a68a846f = L.map(
-                "map_6be2389e75094bff9f0dd4f0a68a846f",
+            var map_49e1438ac76d4c41b934424427417fe2 = L.map(
+                "map_49e1438ac76d4c41b934424427417fe2",
                 {
-                    center: [45.53, -73.58],
+                    center: [47.082287, -97.985519],
                     crs: L.CRS.EPSG3857,
-                    zoom: 14,
+                    zoom: 3,
                     zoomControl: true,
                     preferCanvas: false,
                 }
             );
-            L.control.scale().addTo(map_6be2389e75094bff9f0dd4f0a68a846f);
+            L.control.scale().addTo(map_49e1438ac76d4c41b934424427417fe2);
 
             
 
         
     
-            var tile_layer_70333e6287444e5da9772c8acafbb855 = L.tileLayer(
+            var tile_layer_dde8cfe5fb7b47268bb131ba6d1f9e4c = L.tileLayer(
                 "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
                 {"attribution": "Map tiles by \u003ca href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_6be2389e75094bff9f0dd4f0a68a846f);
+            ).addTo(map_49e1438ac76d4c41b934424427417fe2);
         
     
-            var marker_cluster_6cbf897173d544f1b955a1354e2c316f = L.markerClusterGroup(
-                {}
+            var marker_cluster_334af0870cb345f8995638b31aa115ad = L.markerClusterGroup(
+                {"showCoverageOnHover": false}
             );
-            map_6be2389e75094bff9f0dd4f0a68a846f.addLayer(marker_cluster_6cbf897173d544f1b955a1354e2c316f);
+            map_49e1438ac76d4c41b934424427417fe2.addLayer(marker_cluster_334af0870cb345f8995638b31aa115ad);
         
     
-            var circle_6f5c91716bea46de8fb1b16a399b8fda = L.circle(
-                [45.52684710654529, -73.57883365764707],
+            var circle_d61ffcd08653431aa43a2310dc6e2b79 = L.circle(
+                [45.523146852588916, -73.57800357966529],
                 {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_6cbf897173d544f1b955a1354e2c316f);
+            ).addTo(marker_cluster_334af0870cb345f8995638b31aa115ad);
         
     
-        var popup_3787ca22cb444359861eeef7d1ca9491 = L.popup({"maxWidth": 200});
+        var popup_21b15b0850fe4a49932a22fdac8d9905 = L.popup({"maxWidth": 200});
 
         
-            var html_2acfc470f8cc407fa3802e011c299b88 = $(`<div id="html_2acfc470f8cc407fa3802e011c299b88" style="width: 100.0%; height: 100.0%;"><b>Name:</b> David <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Neighborhood:</b> Plateau <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 5.0 <br><b>Day of Week:</b> Mon, Wed, Sat, Sun <br><b>Time of Day:</b> Morning, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> I lead a team of data analysts at a Montreal startup. Born in China but grew up snowbound  in the prairies of central Canada. Aspiring Adirondack 46er. Hoping to tick off the last 3 peaks once we beat this pandemic. <br></div>`)[0];
-            popup_3787ca22cb444359861eeef7d1ca9491.setContent(html_2acfc470f8cc407fa3802e011c299b88);
+            var html_352366efe4e7465787302c50d42abfc1 = $(`<div id="html_352366efe4e7465787302c50d42abfc1" style="width: 100.0%; height: 100.0%;"><b>Name:</b> David <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Neighborhood:</b> Plateau <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 5 km <br><b>Day of Week:</b> Mon, Wed, Sat, Sun <br><b>Time of Day:</b> Morning, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> I lead a team of data analysts at a Montreal startup. Born in China but grew up snowbound  in the prairies of central Canada. Aspiring Adirondack 46er. Hoping to tick off the last 3 peaks once we beat this pandemic. <br></div>`)[0];
+            popup_21b15b0850fe4a49932a22fdac8d9905.setContent(html_352366efe4e7465787302c50d42abfc1);
         
 
-        circle_6f5c91716bea46de8fb1b16a399b8fda.bindPopup(popup_3787ca22cb444359861eeef7d1ca9491)
+        circle_d61ffcd08653431aa43a2310dc6e2b79.bindPopup(popup_21b15b0850fe4a49932a22fdac8d9905)
         ;
 
         
     
     
-            var circle_3cd1736e1ac447f38e562874be05ed8a = L.circle(
-                [45.527058735136265, -73.58004727467329],
+            var circle_4bc71d4d28444f70ada8d41a603e3779 = L.circle(
+                [45.530518352313244, -73.57533715993873],
                 {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_6cbf897173d544f1b955a1354e2c316f);
+            ).addTo(marker_cluster_334af0870cb345f8995638b31aa115ad);
         
     
-        var popup_9fa069a04fe8468582cf6a1a596f52dd = L.popup({"maxWidth": 200});
+        var popup_033bf44d19424e97b34bad0b01efecba = L.popup({"maxWidth": 200});
 
         
-            var html_4d71899d8fcd4e708f080760611eab87 = $(`<div id="html_4d71899d8fcd4e708f080760611eab87" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Yi <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Neighborhood:</b> Plateau-Mont Royal <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact), Motorized Vehicule (large) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 5.0 <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br></div>`)[0];
-            popup_9fa069a04fe8468582cf6a1a596f52dd.setContent(html_4d71899d8fcd4e708f080760611eab87);
+            var html_5e0dcf4a78c74cf5862c7f46bb9cc051 = $(`<div id="html_5e0dcf4a78c74cf5862c7f46bb9cc051" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Yi <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Neighborhood:</b> Plateau-Mont Royal <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact), Motorized Vehicule (large) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 5 km <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br></div>`)[0];
+            popup_033bf44d19424e97b34bad0b01efecba.setContent(html_5e0dcf4a78c74cf5862c7f46bb9cc051);
         
 
-        circle_3cd1736e1ac447f38e562874be05ed8a.bindPopup(popup_9fa069a04fe8468582cf6a1a596f52dd)
+        circle_4bc71d4d28444f70ada8d41a603e3779.bindPopup(popup_033bf44d19424e97b34bad0b01efecba)
         ;
 
         
     
     
-            var circle_f044e39b22924045ba07259dcd9665af = L.circle(
-                [49.79120305841935, -97.1944361093542],
+            var circle_e9b3d6dd4b7c49a2a045a63c1efff4fd = L.circle(
+                [49.791297542444546, -97.1909534012216],
                 {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_6cbf897173d544f1b955a1354e2c316f);
+            ).addTo(marker_cluster_334af0870cb345f8995638b31aa115ad);
         
     
-        var popup_60009ae827594b2db1865be3437ac12b = L.popup({"maxWidth": 200});
+        var popup_ee54246f0fcc48739baeb48a48486473 = L.popup({"maxWidth": 200});
 
         
-            var html_6b98d7005f514fd7bbb884ef4b741799 = $(`<div id="html_6b98d7005f514fd7bbb884ef4b741799" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Frank <br><b>Country:</b> Canada <br><b>City:</b> Winnipeg <br><b>Neighborhood:</b> Bridgwater <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3.0 <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English <br><b>Payment:</b> Electronic Money Transfer <br><b>About Me:</b>  <br></div>`)[0];
-            popup_60009ae827594b2db1865be3437ac12b.setContent(html_6b98d7005f514fd7bbb884ef4b741799);
+            var html_f337a820b44e4f5e931c3f089fc1a619 = $(`<div id="html_f337a820b44e4f5e931c3f089fc1a619" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Frank <br><b>Country:</b> Canada <br><b>City:</b> Winnipeg <br><b>Neighborhood:</b> Bridgwater <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English <br><b>Payment:</b> Electronic Money Transfer <br><b>About Me:</b>  <br></div>`)[0];
+            popup_ee54246f0fcc48739baeb48a48486473.setContent(html_f337a820b44e4f5e931c3f089fc1a619);
         
 
-        circle_f044e39b22924045ba07259dcd9665af.bindPopup(popup_60009ae827594b2db1865be3437ac12b)
+        circle_e9b3d6dd4b7c49a2a045a63c1efff4fd.bindPopup(popup_ee54246f0fcc48739baeb48a48486473)
         ;
 
         
     
     
-            var circle_2c392c32ac0e40c99444f0b0ccb5b86e = L.circle(
-                [45.51414937848725, -73.57509398252657],
+            var circle_57d08a2593914e248aa01fab6718bcfe = L.circle(
+                [45.51988410568279, -73.5731227500825],
                 {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_6cbf897173d544f1b955a1354e2c316f);
+            ).addTo(marker_cluster_334af0870cb345f8995638b31aa115ad);
         
     
-        var popup_db1402a47f544e97962a5c2822231ae0 = L.popup({"maxWidth": 200});
+        var popup_15d655560ea449739b52b3e10e171399 = L.popup({"maxWidth": 200});
 
         
-            var html_0d4bbab7d36c4355be2f97e26d4121c6 = $(`<div id="html_0d4bbab7d36c4355be2f97e26d4121c6" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Leah <br><b>Country:</b> Canada <br><b>City:</b> Montreal  <br><b>Neighborhood:</b> Plateau <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3.0 <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I’m a PhD student in psychology who loves rock climbing and biking  <br></div>`)[0];
-            popup_db1402a47f544e97962a5c2822231ae0.setContent(html_0d4bbab7d36c4355be2f97e26d4121c6);
+            var html_2553b6f37c824b1aa24b6fb6a37d8f86 = $(`<div id="html_2553b6f37c824b1aa24b6fb6a37d8f86" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Leah <br><b>Country:</b> Canada <br><b>City:</b> Montreal  <br><b>Neighborhood:</b> Plateau <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I’m a PhD student in psychology who loves rock climbing and biking  <br></div>`)[0];
+            popup_15d655560ea449739b52b3e10e171399.setContent(html_2553b6f37c824b1aa24b6fb6a37d8f86);
         
 
-        circle_2c392c32ac0e40c99444f0b0ccb5b86e.bindPopup(popup_db1402a47f544e97962a5c2822231ae0)
+        circle_57d08a2593914e248aa01fab6718bcfe.bindPopup(popup_15d655560ea449739b52b3e10e171399)
         ;
 
         
     
     
-            var circle_55cdb39f19394edd91f496c3964faf56 = L.circle(
-                [45.52884099327503, -73.56499318902713],
+            var circle_431ce4c101634a9eb2e83eabdada8eae = L.circle(
+                [45.53614848430929, -73.56371527179641],
                 {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 200.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_6cbf897173d544f1b955a1354e2c316f);
+            ).addTo(marker_cluster_334af0870cb345f8995638b31aa115ad);
         
     
-        var popup_e9ef0fa1f7a44986b44adf28fe691622 = L.popup({"maxWidth": 200});
+        var popup_8692a93965af48b49b009880b1306a43 = L.popup({"maxWidth": 200});
 
         
-            var html_06af84eef0524e2fa153404709111747 = $(`<div id="html_06af84eef0524e2fa153404709111747" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Gioele <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Neighborhood:</b> Plateau <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 10.0 <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, Italian <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br></div>`)[0];
-            popup_e9ef0fa1f7a44986b44adf28fe691622.setContent(html_06af84eef0524e2fa153404709111747);
+            var html_9db2c53a02d540b1bb8194b323e860c4 = $(`<div id="html_9db2c53a02d540b1bb8194b323e860c4" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Gioele <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Neighborhood:</b> Plateau <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 10 km <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, Italian <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br></div>`)[0];
+            popup_8692a93965af48b49b009880b1306a43.setContent(html_9db2c53a02d540b1bb8194b323e860c4);
         
 
-        circle_55cdb39f19394edd91f496c3964faf56.bindPopup(popup_e9ef0fa1f7a44986b44adf28fe691622)
+        circle_431ce4c101634a9eb2e83eabdada8eae.bindPopup(popup_8692a93965af48b49b009880b1306a43)
         ;
 
         
     
     
-            var layer_control_f49c2a66daca487c8065859f1e2b7bb2 = {
+            var layer_control_180c55d7f5554394acab8dfd41166d44 = {
                 base_layers : {
-                    "stamenterrain" : tile_layer_70333e6287444e5da9772c8acafbb855,
+                    "stamenterrain" : tile_layer_dde8cfe5fb7b47268bb131ba6d1f9e4c,
                 },
                 overlays :  {
-                    "Volunteers" : marker_cluster_6cbf897173d544f1b955a1354e2c316f,
+                    "Volunteers" : marker_cluster_334af0870cb345f8995638b31aa115ad,
                 },
             };
             L.control.layers(
-                layer_control_f49c2a66daca487c8065859f1e2b7bb2.base_layers,
-                layer_control_f49c2a66daca487c8065859f1e2b7bb2.overlays,
+                layer_control_180c55d7f5554394acab8dfd41166d44.base_layers,
+                layer_control_180c55d7f5554394acab8dfd41166d44.overlays,
                 {"autoZIndex": true, "collapsed": true, "position": "topright"}
-            ).addTo(map_6be2389e75094bff9f0dd4f0a68a846f);
+            ).addTo(map_49e1438ac76d4c41b934424427417fe2);
         
     
-            var locate_control_f50605178a484a40ac76131363b69f2d = L.control.locate(
-                {"flyTo": true, "keepCurrentZoomLevel": false, "returnToPrevBounds": true, "showPopup": true}
-            ).addTo(map_6be2389e75094bff9f0dd4f0a68a846f);
+            var locate_control_a3557543432b4d5c82bcd7a2397087d1 = L.control.locate(
+                {"flyTo": true, "keepCurrentZoomLevel": false, "locateOptions": {"maxZoom": 12}, "returnToPrevBounds": true, "showPopup": true}
+            ).addTo(map_49e1438ac76d4c41b934424427417fe2);
         
 </script>

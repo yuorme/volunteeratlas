@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_b28bce9ff7c3437e9f55db7ccd1e8e80 {
+                #map_2a489d01f1d24aada6343e9e9357c862 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -40,246 +40,303 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_b28bce9ff7c3437e9f55db7ccd1e8e80" ></div>
+            <div class="folium-map" id="map_2a489d01f1d24aada6343e9e9357c862" ></div>
         
 </body>
 <script>    
     
-            var map_b28bce9ff7c3437e9f55db7ccd1e8e80 = L.map(
-                "map_b28bce9ff7c3437e9f55db7ccd1e8e80",
+            var map_2a489d01f1d24aada6343e9e9357c862 = L.map(
+                "map_2a489d01f1d24aada6343e9e9357c862",
                 {
-                    center: [47.082287, -97.985519],
+                    center: [53.981843, -97.564298],
                     crs: L.CRS.EPSG3857,
-                    zoom: 3,
+                    zoom: 4,
                     zoomControl: true,
                     preferCanvas: false,
                 }
             );
-            L.control.scale().addTo(map_b28bce9ff7c3437e9f55db7ccd1e8e80);
+            L.control.scale().addTo(map_2a489d01f1d24aada6343e9e9357c862);
 
             
 
         
     
-            var tile_layer_18a9f1e3572741b78a045e18e774b07d = L.tileLayer(
+            var tile_layer_6d3f75a21282493f97e79cd1a9843d1c = L.tileLayer(
                 "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
                 {"attribution": "Map tiles by \u003ca href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_b28bce9ff7c3437e9f55db7ccd1e8e80);
+            ).addTo(map_2a489d01f1d24aada6343e9e9357c862);
         
     
-            var marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e = L.markerClusterGroup(
+            var marker_cluster_f4339d84b1b44abc957761ab8df0f699 = L.markerClusterGroup(
                 {"showCoverageOnHover": false}
             );
-            map_b28bce9ff7c3437e9f55db7ccd1e8e80.addLayer(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            map_2a489d01f1d24aada6343e9e9357c862.addLayer(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-            var circle_3efe1f4fc13c462b82b63230183033ea = L.circle(
-                [45.52581681479866, -73.57408485873802],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_cf4cdd6d37434f45b0a9a6affadeba2d = L.circle(
+                [45.52894969897074, -73.5730891724375],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_bf108e71762c44f88daf39c48a8cc95f = L.popup({"maxWidth": 200});
+        var popup_eb376bd48edf451087d2abe796ddf6d4 = L.popup({"maxWidth": 200});
 
         
-            var html_a1f5e2089f9e4063a8941b9fa52572c0 = $(`<div id="html_a1f5e2089f9e4063a8941b9fa52572c0" style="width: 100.0%; height: 100.0%;"><b>Name:</b> David <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 5 km <br><b>Day of Week:</b> Mon, Wed, Sat, Sun <br><b>Time of Day:</b> Morning, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> I lead a team of data analysts at a Montreal startup. Born in China but grew up snowbound  in the prairies of central Canada. Aspiring Adirondack 46er. Hoping to tick off the last 3 peaks once we beat this pandemic. <br><a href='mailto:yuorme@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20David' target='_blank'>Contact David</a>  <br></div>`)[0];
-            popup_bf108e71762c44f88daf39c48a8cc95f.setContent(html_a1f5e2089f9e4063a8941b9fa52572c0);
+            var html_ef73911035e24a90a3e76799f2a4d0c7 = $(`<div id="html_ef73911035e24a90a3e76799f2a4d0c7" style="width: 100.0%; height: 100.0%;"><b>Name:</b> David <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 5 km <br><b>Day of Week:</b> Mon, Wed, Sat, Sun <br><b>Time of Day:</b> Morning, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> I lead a team of data analysts at a Montreal startup. Born in China but grew up snowbound  in the prairies of central Canada. Aspiring Adirondack 46er. Hoping to tick off the last 3 peaks once we beat this pandemic. <br><a href='mailto:yuorme@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20David' target='_blank'>Contact David</a>  <br></div>`)[0];
+            popup_eb376bd48edf451087d2abe796ddf6d4.setContent(html_ef73911035e24a90a3e76799f2a4d0c7);
         
 
-        circle_3efe1f4fc13c462b82b63230183033ea.bindPopup(popup_bf108e71762c44f88daf39c48a8cc95f)
+        circle_cf4cdd6d37434f45b0a9a6affadeba2d.bindPopup(popup_eb376bd48edf451087d2abe796ddf6d4)
         ;
 
         
     
     
-            var circle_93335ae8e97449868747895d8eb1c50e = L.circle(
-                [45.52839508247557, -73.57867790877722],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_3b7c250cbd964c988d27540521a0877e = L.circle(
+                [45.52712568748447, -73.57648963846161],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_85bfc5f68a304d7e82539ddf5cd5faa4 = L.popup({"maxWidth": 200});
+        var popup_73d6eb95cff44e8c98b04272d799e3b2 = L.popup({"maxWidth": 200});
 
         
-            var html_b19b0c07167c4731bde595ff7b688136 = $(`<div id="html_b19b0c07167c4731bde595ff7b688136" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Yi <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact), Motorized Vehicule (large) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 5 km <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I'm a landscape designer who's passionate about art, rock climbing, and adventures in the great outdoors.  <br><a href='mailto:yzhou.x@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Yi' target='_blank'>Contact Yi</a>  <br></div>`)[0];
-            popup_85bfc5f68a304d7e82539ddf5cd5faa4.setContent(html_b19b0c07167c4731bde595ff7b688136);
+            var html_21ed0905a5fa40528ffe5a3c41900d9b = $(`<div id="html_21ed0905a5fa40528ffe5a3c41900d9b" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Yi <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle, Motorized Vehicule (compact), Motorized Vehicule (large) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 5 km <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, Mandarin <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I'm a landscape designer who's passionate about art, rock climbing, and adventures in the great outdoors.  <br><a href='mailto:yzhou.x@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Yi' target='_blank'>Contact Yi</a>  <br></div>`)[0];
+            popup_73d6eb95cff44e8c98b04272d799e3b2.setContent(html_21ed0905a5fa40528ffe5a3c41900d9b);
         
 
-        circle_93335ae8e97449868747895d8eb1c50e.bindPopup(popup_85bfc5f68a304d7e82539ddf5cd5faa4)
+        circle_3b7c250cbd964c988d27540521a0877e.bindPopup(popup_73d6eb95cff44e8c98b04272d799e3b2)
         ;
 
         
     
     
-            var circle_97d7a7752876418d8dcadb78f93f7c87 = L.circle(
-                [49.79010033520997, -97.1928070116182],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_3f766027360a412b8ce9a7df99cbcc75 = L.circle(
+                [49.79604342436329, -97.19229855688407],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_5b1b06050b624237a983909e230c9f97 = L.popup({"maxWidth": 200});
+        var popup_3532669d322341a3ab5b976e30c43013 = L.popup({"maxWidth": 200});
 
         
-            var html_98bd6014e1344f40934319cdeca53de0 = $(`<div id="html_98bd6014e1344f40934319cdeca53de0" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Frank <br><b>Country:</b> Canada <br><b>City:</b> Winnipeg <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English <br><b>Payment:</b> Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:yu.frank97@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Frank' target='_blank'>Contact Frank</a>  <br></div>`)[0];
-            popup_5b1b06050b624237a983909e230c9f97.setContent(html_98bd6014e1344f40934319cdeca53de0);
+            var html_80cd7afba32d4db18106bebf6074c90c = $(`<div id="html_80cd7afba32d4db18106bebf6074c90c" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Frank <br><b>Country:</b> Canada <br><b>City:</b> Winnipeg <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English <br><b>Payment:</b> Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:yu.frank97@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Frank' target='_blank'>Contact Frank</a>  <br></div>`)[0];
+            popup_3532669d322341a3ab5b976e30c43013.setContent(html_80cd7afba32d4db18106bebf6074c90c);
         
 
-        circle_97d7a7752876418d8dcadb78f93f7c87.bindPopup(popup_5b1b06050b624237a983909e230c9f97)
+        circle_3f766027360a412b8ce9a7df99cbcc75.bindPopup(popup_3532669d322341a3ab5b976e30c43013)
         ;
 
         
     
     
-            var circle_f67129d39ce749e982adc0e2f4dc5b0a = L.circle(
-                [45.5149280542266, -73.57370143902706],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_ac7492c25f984616b395775f522ee86d = L.circle(
+                [45.51449802339746, -73.57908032096539],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_bbb6ff5730f64c67833e1bc93a4ab086 = L.popup({"maxWidth": 200});
+        var popup_b1048047b166406d804b6c80e321f36e = L.popup({"maxWidth": 200});
 
         
-            var html_a2df5007c0c649d79e973b0ff41686fe = $(`<div id="html_a2df5007c0c649d79e973b0ff41686fe" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Leah <br><b>Country:</b> Canada <br><b>City:</b> Montreal  <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I’m a PhD student in psychology who loves rock climbing and biking  <br><a href='mailto:leah.olwyn@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Leah' target='_blank'>Contact Leah</a>  <br></div>`)[0];
-            popup_bbb6ff5730f64c67833e1bc93a4ab086.setContent(html_a2df5007c0c649d79e973b0ff41686fe);
+            var html_164a53e5e682434da681e99dbbca3bc3 = $(`<div id="html_164a53e5e682434da681e99dbbca3bc3" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Leah <br><b>Country:</b> Canada <br><b>City:</b> Montreal  <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I’m a PhD student in psychology who loves rock climbing and biking  <br><a href='mailto:leah.olwyn@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Leah' target='_blank'>Contact Leah</a>  <br></div>`)[0];
+            popup_b1048047b166406d804b6c80e321f36e.setContent(html_164a53e5e682434da681e99dbbca3bc3);
         
 
-        circle_f67129d39ce749e982adc0e2f4dc5b0a.bindPopup(popup_bbb6ff5730f64c67833e1bc93a4ab086)
+        circle_ac7492c25f984616b395775f522ee86d.bindPopup(popup_b1048047b166406d804b6c80e321f36e)
         ;
 
         
     
     
-            var circle_eb4a208a7eb14121bed42cf5ab95a417 = L.circle(
-                [45.5327296019279, -73.56127654800942],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 200.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_0554ee70ad33480793a8a001a25977ec = L.circle(
+                [45.5354965199837, -73.5632286410016],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_83b2c32f9a4b4de0a3d5dd69aedd2d0c = L.popup({"maxWidth": 200});
+        var popup_8971cf6692434ef9854823e9b7d119f2 = L.popup({"maxWidth": 200});
 
         
-            var html_21c7933b8921415f9bdc2266ba5f81f2 = $(`<div id="html_21c7933b8921415f9bdc2266ba5f81f2" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Gioele <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 10 km <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, Italian <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:gas12n@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Gioele' target='_blank'>Contact Gioele</a>  <br></div>`)[0];
-            popup_83b2c32f9a4b4de0a3d5dd69aedd2d0c.setContent(html_21c7933b8921415f9bdc2266ba5f81f2);
+            var html_1354a17de09e4b55901df8625bb4238d = $(`<div id="html_1354a17de09e4b55901df8625bb4238d" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Gioele <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Transportation:</b> Motorized Vehicule (compact) <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 10 km <br><b>Day of Week:</b> Fri, Sat, Sun <br><b>Time of Day:</b>  <br><b>Languages:</b> English, Italian <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:gas12n@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Gioele' target='_blank'>Contact Gioele</a>  <br></div>`)[0];
+            popup_8971cf6692434ef9854823e9b7d119f2.setContent(html_1354a17de09e4b55901df8625bb4238d);
         
 
-        circle_eb4a208a7eb14121bed42cf5ab95a417.bindPopup(popup_83b2c32f9a4b4de0a3d5dd69aedd2d0c)
+        circle_0554ee70ad33480793a8a001a25977ec.bindPopup(popup_8971cf6692434ef9854823e9b7d119f2)
         ;
 
         
     
     
-            var circle_6554726e54cf4836856fcc6876572b4f = L.circle(
-                [45.53491762710149, -73.56694644464298],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_319941ac8f9045639883a7b39c9a713c = L.circle(
+                [45.533873348704745, -73.57146938371254],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_9e15fd13c9a44c0cacb0f8d94a3de1eb = L.popup({"maxWidth": 200});
+        var popup_2fd71fad235c423cb32d60ba361f9f52 = L.popup({"maxWidth": 200});
 
         
-            var html_fcb3784391bb4f15a8cc0be8105f1850 = $(`<div id="html_fcb3784391bb4f15a8cc0be8105f1850" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Mikayla <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> Hello/bonjour! I am a recent grad from McGill who is working full time at an environmental non-profit and am very privileged to be able to work from home lately. That being said, I want to help out others who are not in the same position as me so please contact me if you need anything! I love being outside and am happy to walk or bike to get you what you need. N'hésitez pas à me contacter en français aussi, je suis complètement bilingue! :) <br><a href='mailto:mikaylaemma@yahoo.ca?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Mikayla' target='_blank'>Contact Mikayla</a>  <br></div>`)[0];
-            popup_9e15fd13c9a44c0cacb0f8d94a3de1eb.setContent(html_fcb3784391bb4f15a8cc0be8105f1850);
+            var html_9a6e5e79fb504010b8c515777bc9265d = $(`<div id="html_9a6e5e79fb504010b8c515777bc9265d" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Mikayla <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> Hello/bonjour! I am a recent grad from McGill who is working full time at an environmental non-profit and am very privileged to be able to work from home lately. That being said, I want to help out others who are not in the same position as me so please contact me if you need anything! I love being outside and am happy to walk or bike to get you what you need. N'hésitez pas à me contacter en français aussi, je suis complètement bilingue! :) <br><a href='mailto:mikaylaemma@yahoo.ca?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Mikayla' target='_blank'>Contact Mikayla</a>  <br></div>`)[0];
+            popup_2fd71fad235c423cb32d60ba361f9f52.setContent(html_9a6e5e79fb504010b8c515777bc9265d);
         
 
-        circle_6554726e54cf4836856fcc6876572b4f.bindPopup(popup_9e15fd13c9a44c0cacb0f8d94a3de1eb)
+        circle_319941ac8f9045639883a7b39c9a713c.bindPopup(popup_2fd71fad235c423cb32d60ba361f9f52)
         ;
 
         
     
     
-            var circle_a538bcdcf92040e69a3c50b4e444e2ca = L.circle(
-                [43.65387677849907, -79.4113371757554],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_3547d6f5af78452287167b39c4509e4c = L.circle(
+                [43.65259068419322, -79.4101737167531],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_1e113957f57f4ba3986dcaec90125293 = L.popup({"maxWidth": 200});
+        var popup_49c4bac392784b22bf7b3a3b2c902ae9 = L.popup({"maxWidth": 200});
 
         
-            var html_e6a9dc7164e84a24999999007f3e8982 = $(`<div id="html_e6a9dc7164e84a24999999007f3e8982" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Rosamund <br><b>Country:</b> Canada <br><b>City:</b> Toronto <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon <br><b>Languages:</b> English <br><b>Payment:</b> Electronic Money Transfer <br><b>About Me:</b> Hi! I'm a writer and I'm free on weekends and some evenings. Looking to help out and help you stay inside. I live with two roommates (and a cat!) and we are not seeing any other people and all healthy and not recently travelled. Sending love to everyone at this time. <br><a href='mailto:smallrosamund@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Rosamund' target='_blank'>Contact Rosamund</a>  <br></div>`)[0];
-            popup_1e113957f57f4ba3986dcaec90125293.setContent(html_e6a9dc7164e84a24999999007f3e8982);
+            var html_3de1be3c533d4fc7b906baa0186466a5 = $(`<div id="html_3de1be3c533d4fc7b906baa0186466a5" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Rosamund <br><b>Country:</b> Canada <br><b>City:</b> Toronto <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon <br><b>Languages:</b> English <br><b>Payment:</b> Electronic Money Transfer <br><b>About Me:</b> Hi! I'm a writer and I'm free on weekends and some evenings. Looking to help out and help you stay inside. I live with two roommates (and a cat!) and we are not seeing any other people and all healthy and not recently travelled. Sending love to everyone at this time. <br><a href='mailto:smallrosamund@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Rosamund' target='_blank'>Contact Rosamund</a>  <br></div>`)[0];
+            popup_49c4bac392784b22bf7b3a3b2c902ae9.setContent(html_3de1be3c533d4fc7b906baa0186466a5);
         
 
-        circle_a538bcdcf92040e69a3c50b4e444e2ca.bindPopup(popup_1e113957f57f4ba3986dcaec90125293)
+        circle_3547d6f5af78452287167b39c4509e4c.bindPopup(popup_49c4bac392784b22bf7b3a3b2c902ae9)
         ;
 
         
     
     
-            var circle_8e26528e2cc94da4bedb9e560b793416 = L.circle(
-                [45.51353565982838, -73.62820480921089],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_c1df5028c4d94f2285e93c6d12b496c7 = L.circle(
+                [45.5108912646474, -73.63163123979149],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_f0b2da3394f74c38a870b1ac8684ba37 = L.popup({"maxWidth": 200});
+        var popup_1015b22c817145598507a54b4b6ab672 = L.popup({"maxWidth": 200});
 
         
-            var html_7649fad136a94e2ca8a2286a2efa4ff6 = $(`<div id="html_7649fad136a94e2ca8a2286a2efa4ff6" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Noah <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> Recent graduate in aerospace engineering, home sourdough bread baker, all-seasons cyclist (and I have a big bag so I can do bike deliveries of large quantities of groceries!) <br><a href='mailto:noahsadaka@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Noah' target='_blank'>Contact Noah</a>  <br></div>`)[0];
-            popup_f0b2da3394f74c38a870b1ac8684ba37.setContent(html_7649fad136a94e2ca8a2286a2efa4ff6);
+            var html_a0f22e7fb6b84f838dd87bc48a78ac48 = $(`<div id="html_a0f22e7fb6b84f838dd87bc48a78ac48" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Noah <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> Recent graduate in aerospace engineering, home sourdough bread baker, all-seasons cyclist (and I have a big bag so I can do bike deliveries of large quantities of groceries!) <br><a href='mailto:noahsadaka@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Noah' target='_blank'>Contact Noah</a>  <br></div>`)[0];
+            popup_1015b22c817145598507a54b4b6ab672.setContent(html_a0f22e7fb6b84f838dd87bc48a78ac48);
         
 
-        circle_8e26528e2cc94da4bedb9e560b793416.bindPopup(popup_f0b2da3394f74c38a870b1ac8684ba37)
+        circle_c1df5028c4d94f2285e93c6d12b496c7.bindPopup(popup_1015b22c817145598507a54b4b6ab672)
         ;
 
         
     
     
-            var circle_991fefc38b554ddfbc450bf188be4ad0 = L.circle(
-                [45.53283064505543, -73.60194280061083],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 60.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_19e9e42383544ae6bd18bce1563f0394 = L.circle(
+                [45.53331045451216, -73.59882484404066],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_62cea6423ba043c8a7a00b180abe6d49 = L.popup({"maxWidth": 200});
+        var popup_b6457ad48f6a4a2b8b7e0fb012d4e567 = L.popup({"maxWidth": 200});
 
         
-            var html_6f0243005c484d9e8dc62edf549bf08f = $(`<div id="html_6f0243005c484d9e8dc62edf549bf08f" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Christofer <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:christofer.hilz@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Christofer' target='_blank'>Contact Christofer</a>  <br></div>`)[0];
-            popup_62cea6423ba043c8a7a00b180abe6d49.setContent(html_6f0243005c484d9e8dc62edf549bf08f);
+            var html_89be66e4bd434925b47cdf9583ceb52c = $(`<div id="html_89be66e4bd434925b47cdf9583ceb52c" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Christofer <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:christofer.hilz@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Christofer' target='_blank'>Contact Christofer</a>  <br></div>`)[0];
+            popup_b6457ad48f6a4a2b8b7e0fb012d4e567.setContent(html_89be66e4bd434925b47cdf9583ceb52c);
         
 
-        circle_991fefc38b554ddfbc450bf188be4ad0.bindPopup(popup_62cea6423ba043c8a7a00b180abe6d49)
+        circle_19e9e42383544ae6bd18bce1563f0394.bindPopup(popup_b6457ad48f6a4a2b8b7e0fb012d4e567)
         ;
 
         
     
     
-            var circle_6cccdd825bfc4c349d64e91dc62a6bd7 = L.circle(
-                [45.477948531667536, -73.58360008339889],
-                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.0, "stroke": true, "weight": 3}
-            ).addTo(marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e);
+            var circle_d657dcb96ecc4b2cb39caf329330521d = L.circle(
+                [45.47773358230627, -73.58063198265256],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
         
     
-        var popup_13563947920e484899c4a7a3c7f5a9e5 = L.popup({"maxWidth": 200});
+        var popup_6dc04e5a8dc14bf48e266fd169a151dc = L.popup({"maxWidth": 200});
 
         
-            var html_aaa553ca5fdf4f8d88592818d72f6d2b = $(`<div id="html_aaa553ca5fdf4f8d88592818d72f6d2b" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Reece <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Transportation:</b> Walk <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 1 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> I recently moved to Montréal from northern England. I am interested in arts, sports and broadcasting. I have worked in media in the past but presently work in hospitality, though have lost my job as a result of the pandemic. <br><a href='mailto:reecechurmdiy@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Reece' target='_blank'>Contact Reece</a>  <br></div>`)[0];
-            popup_13563947920e484899c4a7a3c7f5a9e5.setContent(html_aaa553ca5fdf4f8d88592818d72f6d2b);
+            var html_b8da5acef8fe45b6adc8e74edc6cad35 = $(`<div id="html_b8da5acef8fe45b6adc8e74edc6cad35" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Reece <br><b>Country:</b> Canada <br><b>City:</b> Montréal <br><b>Transportation:</b> Walk <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 1 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English <br><b>Payment:</b> Cash, Cheque, Electronic Money Transfer <br><b>About Me:</b> I recently moved to Montréal from northern England. I am interested in arts, sports and broadcasting. I have worked in media in the past but presently work in hospitality, though have lost my job as a result of the pandemic. <br><a href='mailto:reecechurmdiy@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Reece' target='_blank'>Contact Reece</a>  <br></div>`)[0];
+            popup_6dc04e5a8dc14bf48e266fd169a151dc.setContent(html_b8da5acef8fe45b6adc8e74edc6cad35);
         
 
-        circle_6cccdd825bfc4c349d64e91dc62a6bd7.bindPopup(popup_13563947920e484899c4a7a3c7f5a9e5)
+        circle_d657dcb96ecc4b2cb39caf329330521d.bindPopup(popup_6dc04e5a8dc14bf48e266fd169a151dc)
         ;
 
         
     
     
-            var layer_control_e7dccfe068634853b6e5e47e10f95c4c = {
+            var circle_3759493a74464859ae80feafe79a1f46 = L.circle(
+                [43.665260713351536, -79.40615983840402],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
+        
+    
+        var popup_114409d842c749708df662a912794a46 = L.popup({"maxWidth": 200});
+
+        
+            var html_414257a04703471e946bca0df5346129 = $(`<div id="html_414257a04703471e946bca0df5346129" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Grace <br><b>Country:</b> Canada <br><b>City:</b> Toronto <br><b>Transportation:</b> Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Wed, Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon <br><b>Languages:</b> English <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b>  <br><a href='mailto:gracecameron98@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Grace' target='_blank'>Contact Grace</a>  <br></div>`)[0];
+            popup_114409d842c749708df662a912794a46.setContent(html_414257a04703471e946bca0df5346129);
+        
+
+        circle_3759493a74464859ae80feafe79a1f46.bindPopup(popup_114409d842c749708df662a912794a46)
+        ;
+
+        
+    
+    
+            var circle_9178c105e7da430f9e47309ef8a1dd04 = L.circle(
+                [45.515626636528985, -73.58048073561939],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
+        
+    
+        var popup_bed9116100a94bee9831bf63fe103c5c = L.popup({"maxWidth": 200});
+
+        
+            var html_c11fc7a4eb134b59966fd92394e644fd = $(`<div id="html_c11fc7a4eb134b59966fd92394e644fd" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Sophie <br><b>Country:</b> Canada <br><b>City:</b> Montreal <br><b>Transportation:</b> Walk <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 1 km <br><b>Day of Week:</b> Mon, Tue, Wed, Thu, Fri, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon <br><b>Languages:</b> English, French, Spanish <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> Law student at McGill, love the outdoors and physical activity, love children, dancing <br><a href='mailto:sophie.eva.gl@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Sophie' target='_blank'>Contact Sophie</a>  <br></div>`)[0];
+            popup_bed9116100a94bee9831bf63fe103c5c.setContent(html_c11fc7a4eb134b59966fd92394e644fd);
+        
+
+        circle_9178c105e7da430f9e47309ef8a1dd04.bindPopup(popup_bed9116100a94bee9831bf63fe103c5c)
+        ;
+
+        
+    
+    
+            var circle_797b60da9bbf4624933edead88e2b36d = L.circle(
+                [43.66092498872354, -79.4418786007805],
+                {"bubblingMouseEvents": true, "color": "#00d700", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#00d700", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_f4339d84b1b44abc957761ab8df0f699);
+        
+    
+        var popup_c6b16afe40a24563b65532f67fc99043 = L.popup({"maxWidth": 200});
+
+        
+            var html_425e6bd522824c1a80b1c7cda201a333 = $(`<div id="html_425e6bd522824c1a80b1c7cda201a333" style="width: 100.0%; height: 100.0%;"><b>Name:</b> Emma <br><b>Country:</b> Canada <br><b>City:</b> TORONTO <br><b>Transportation:</b> Walk, Bicycle <br><b>Services:</b> Groceries, Pharmacy, Household Supplies, Other Errands <br><b>Radius:</b> 3 km <br><b>Day of Week:</b> Wed, Thu, Sat, Sun <br><b>Time of Day:</b> Morning, Afternoon, Evening <br><b>Languages:</b> English, French <br><b>Payment:</b> Cash, Electronic Money Transfer <br><b>About Me:</b> I'm a grad student in Political Science at the University of Toronto. Community is one of the most important things to me and I am constantly thinking about how to foster and care for community. Everything is scary at the moment and it is difficult to be optimistic, but I have loved seeing the different ways people have found to take care of and be there for each other!  <br><a href='mailto:emmaelbourne@gmail.com?cc=volunteers.atlas@gmail.com&Subject=Delivery%20Request%20for%20Emma' target='_blank'>Contact Emma</a>  <br></div>`)[0];
+            popup_c6b16afe40a24563b65532f67fc99043.setContent(html_425e6bd522824c1a80b1c7cda201a333);
+        
+
+        circle_797b60da9bbf4624933edead88e2b36d.bindPopup(popup_c6b16afe40a24563b65532f67fc99043)
+        ;
+
+        
+    
+    
+            var layer_control_a09ad7001e2c40cc99c04434f732888e = {
                 base_layers : {
-                    "stamenterrain" : tile_layer_18a9f1e3572741b78a045e18e774b07d,
+                    "stamenterrain" : tile_layer_6d3f75a21282493f97e79cd1a9843d1c,
                 },
                 overlays :  {
-                    "Volunteers" : marker_cluster_0dfb8f8500fe4d738d0e304426e52c5e,
+                    "Volunteers" : marker_cluster_f4339d84b1b44abc957761ab8df0f699,
                 },
             };
             L.control.layers(
-                layer_control_e7dccfe068634853b6e5e47e10f95c4c.base_layers,
-                layer_control_e7dccfe068634853b6e5e47e10f95c4c.overlays,
+                layer_control_a09ad7001e2c40cc99c04434f732888e.base_layers,
+                layer_control_a09ad7001e2c40cc99c04434f732888e.overlays,
                 {"autoZIndex": true, "collapsed": true, "position": "topright"}
-            ).addTo(map_b28bce9ff7c3437e9f55db7ccd1e8e80);
+            ).addTo(map_2a489d01f1d24aada6343e9e9357c862);
         
     
-            var locate_control_9158453c44d341c6a1b0f26a8b2c4cca = L.control.locate(
-                {"flyTo": true, "keepCurrentZoomLevel": false, "locateOptions": {"maxZoom": 12}, "returnToPrevBounds": true, "showPopup": true}
-            ).addTo(map_b28bce9ff7c3437e9f55db7ccd1e8e80);
+            var locate_control_0f0e09d1f5364dd4abc3c7a117ebeda1 = L.control.locate(
+                {"flyTo": true, "keepCurrentZoomLevel": false, "locateOptions": {"maxZoom": 13}, "returnToPrevBounds": true, "showPopup": true}
+            ).addTo(map_2a489d01f1d24aada6343e9e9357c862);
         
 </script>

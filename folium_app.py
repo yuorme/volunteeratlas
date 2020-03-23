@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
 
@@ -17,9 +14,9 @@ from google.auth.transport.requests import Request
 import folium
 from folium.plugins import LocateControl, MarkerCluster
 
-
-# In[2]:
-
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
 
 def get_google_sheet(spreadsheet_id, range_name):
     """Shows basic usage of the Sheets API.
@@ -61,77 +58,111 @@ def get_google_sheet(spreadsheet_id, range_name):
         print('No data found.')
         sys.exit()
     
-    return result
+    return process_sheets_df(result)
 
-
-# In[3]:
-
-
-def get_popup_html(row):
-    '''Builds an HTML popup to display in folium marker objects
-    row (pandas Series): row from the google sheets dataframe
+def process_sheets_df(result):
+    '''process google sheets json into a dataframe
+    result (dict): Object returned by get_google_sheet function
     '''
-    return folium.Popup(
-        f"<b>Name:</b> <a href='{row['Facebook Profile Link']}' target='_blank'>{row['Given Name']} {row['Family Name']}</a> <br>" +  
-        f"<b>Country:</b> {row['Country']} <br>" +
-        f"<b>City:</b> {row['City/Town']} <br>" +
-        f"<b>Area:</b> {row['Neighborhood']} <br>" +
-        f"<b>Availability:</b> {row['Preferred Day of Week']} <br>" +
-        f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
-        f"<b>Payment:</b> {row['Payment Method']} <br>" +
-        f"<b>Email:</b> <a href='mailto:{row['Email Address']}' target='_blank'>{row['Email Address']}</a> <br>" 
-        , max_width = 200
-    ) 
 
-# In[4]:
+    df = pd.DataFrame(data=result['values'][1:], columns=result['values'][0])
 
+    #process df
+    df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+    df['Radius'] = df['Radius'].str.replace('km','').astype(float)
 
-result = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:R10000000')
+    df['Latitude'] = df['Latitude'].replace('', np.nan, regex=False) \
+        .astype(float)
+    df['Longtitude'] = df['Longtitude'].replace('', np.nan, regex=False) \
+        .astype(float) 
+    
+    start_index=100000
+    df['VID'] = list(range(start_index, start_index+len(df)))
 
-df = pd.DataFrame(data=result['values'][1:], columns=result['values'][0])
+    return df
 
-#process df
-df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-df['Radius'] = df['Radius'].str.replace('km','').astype(float)*10
+def build_folium_map(df, jitter=0.005):
+    
+    def get_popup_html(row):
+        '''Builds a folium HTML popup to display in folium marker objects
+        row (pandas Series): row from the google sheets dataframe
+        '''
+        email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
+        va_email = 'volunteers.atlas@gmail.com'
+        
+        return folium.Popup(
+            f"<b>Name:</b> {row['Given Name']} <br>" +  
+            f"<b>Country:</b> {row['Country']} <br>" +
+            f"<b>City:</b> {row['City/Town']} <br>" +
+#             f"<b>Neighborhood:</b> {row['Neighborhood']} <br>" + #get from geocode
+            f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +
+            f"<b>Services:</b> {row['Type of Services']} <br>" +
+            f"<b>Radius:</b> {int(row['Radius'])} km <br>" +
+            f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
+            f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
+            f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
+            f"<b>Payment:</b> {row['Payment Method']} <br>" +
+            f"<b>About Me:</b> {row['About Me']} <br>" +
+            f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
+            , max_width = 200
+            )
+    
+    dff = df.dropna(axis=0, how='any', subset=['Latitude','Longtitude'])
+    dff = dff.loc[(dff.Health == 'Yes') & (dff.Availability == 'Yes')]
+    dff['Latitude'] = dff['Latitude'].apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
+    dff['Longtitude'] = dff['Longtitude'].apply(lambda x: x+np.random.uniform(-jitter,jitter))
+    
+    #build map
+    m = folium.Map(
+        location=[53.981843, -97.564298], #Canada
+        tiles='Stamen Terrain',
+        zoom_start=4,
+        control_scale=True
+    )
 
-jitter = 0.002 #jitter lat/lon by ~200m
-df['GPS Latitude'] = df['GPS Latitude'].astype(float) + np.random.uniform(-jitter, jitter)
-df['GPS Longtitude'] = df['GPS Longtitude'].astype(float) + np.random.uniform(-jitter, jitter)
+    #add marker cluster
+    mc = MarkerCluster(
+        name='Volunteers', 
+        control=True,
+        overlay=True,
+        showCoverageOnHover=False
+    )
 
+    #add circle markers
+    for idx, row in dff.iterrows():
+        mc.add_child(
+            folium.Circle(
+#                 radius=row['Radius']*250,
+                radius=400,
+                location=[row['Latitude'], row['Longtitude']],
+                popup=get_popup_html(row),
+                color='#00d700',
+                fill=True,
+                fill_color='#00d700'
+            )
+        ).add_to(m)
 
-#build map
-m = folium.Map(
-    location=[45.53, -73.58],
-    tiles='Stamen Terrain',
-    zoom_start=12,
-    control_scale=True
-)
-
-#add marker cluster
-mc = MarkerCluster(
-    name='Volunteer Locations', 
-    control=True)
-
-#add circle markers
-for idx, row in df.iterrows():
-    mc.add_child(
-        folium.Circle(
-            radius=row['Radius'],
-            location=[row['GPS Latitude'], row['GPS Longtitude']],
-            popup=get_popup_html(row),
-            color='#00d700',
-            fill=True,
-            fill_color='#00d700'
-        )
+    #add layer control
+    folium.LayerControl(
+        collapsed=True
     ).add_to(m)
 
-mc.add_to(m)
-folium.LayerControl(collapsed=False).add_to(m)
+    #add location control
+    LocateControl(
+        flyTo=True, 
+        keepCurrentZoomLevel=False,
+        showPopup=True,
+        returnToPrevBounds=True,
+        locateOptions=dict(maxZoom=13)
+    ).add_to(m)
 
-LocateControl(
-    flyTo=True, 
-    keepCurrentZoomLevel=True,
-    showPopup=True
-).add_to(m)
+    m.save('index.html')
+    
+    return m._repr_html_()
 
-m.save('index.html')
+if __name__ == '__main__':
+
+    df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
+
+    m = build_folium_map(df)
+    

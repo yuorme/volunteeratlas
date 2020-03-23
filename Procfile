@@ -1,0 +1,1 @@
+web: gunicorn folium_app:server

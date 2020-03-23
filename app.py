@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from flask import Flask
-
-#!/usr/bin/env python
-# coding: utf-8
-
 import pandas as pd
 import numpy as np
 
@@ -24,8 +19,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 #initialize app
-app = Flask(__name__)
-# server = app.server
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 def get_google_sheet(spreadsheet_id, range_name):
     """Shows basic usage of the Sheets API.
@@ -168,13 +164,16 @@ def build_folium_map(df, jitter=0.005):
     # m.save('index.html')
     print(type(m))
     
-    return m
-
-@app.route('/')
-def index():
-    df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
-    m = build_folium_map(df)
     return m._repr_html_()
 
+
+df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
+
+app.layout = html.Div(children=[
+    html.H1('Volunteer Atlas'),
+    html.Iframe(id='map', srcDoc=build_folium_map(df), width='100%', height=1000),
+    html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas'),
+])
+
 if __name__ == '__main__':
-    app.run(threaded=True, port=5000)
+    app.run_server(debug=True, port= 5000)

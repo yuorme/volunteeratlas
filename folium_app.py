@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from flask import Flask
+
+#!/usr/bin/env python
+# coding: utf-8
+
 import pandas as pd
 import numpy as np
 
@@ -17,6 +22,8 @@ from folium.plugins import LocateControl, MarkerCluster
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+
+app = Flask(__name__)
 
 def get_google_sheet(spreadsheet_id, range_name):
     """Shows basic usage of the Sheets API.
@@ -156,13 +163,17 @@ def build_folium_map(df, jitter=0.005):
         locateOptions=dict(maxZoom=13)
     ).add_to(m)
 
-    m.save('index.html')
+    # m.save('index.html')
+    print(type(m))
     
+    return m
+
+@app.route('/')
+def index():
+    df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
+    m = build_folium_map(df)
     return m._repr_html_()
 
+
 if __name__ == '__main__':
-
-    df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
-
-    m = build_folium_map(df)
-    
+    app.run(debug=False)

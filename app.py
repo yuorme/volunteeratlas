@@ -23,6 +23,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 
+#initialize app
+app = Flask(__name__)
+server = app.server
+
 def get_google_sheet(spreadsheet_id, range_name):
     """Shows basic usage of the Sheets API.
     spreadsheet_id (string): google sheets id 
@@ -171,10 +175,6 @@ def index():
     df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
     m = build_folium_map(df)
     return m._repr_html_()
-
-#initialize app
-app = Flask(__name__)
-server = app.server
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)

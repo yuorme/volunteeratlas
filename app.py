@@ -25,7 +25,7 @@ import dash_html_components as html
 
 #initialize app
 app = Flask(__name__)
-server = app.server
+# server = app.server
 
 def get_google_sheet(spreadsheet_id, range_name):
     """Shows basic usage of the Sheets API.

@@ -5,7 +5,8 @@ import pandas as pd
 import numpy as np
 
 import pickle
-import os.path
+import os
+import json
 
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -22,8 +23,10 @@ import dash_html_components as html
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
+credentials = os.environ['GOOGLE_CREDENTIALS_JSON'].replace('`','"') #HACK: dumb windows hack because double quotes (") can't be escaped in env variables AFAIK
+credentials = json.loads(credentials)
 
-def get_google_sheet(spreadsheet_id, range_name):
+def get_google_sheet(client_config, spreadsheet_id, range_name):
     """Shows basic usage of the Sheets API.
     spreadsheet_id (string): google sheets id 
     range_name (string): sheetname and range 
@@ -44,8 +47,8 @@ def get_google_sheet(spreadsheet_id, range_name):
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_config(
+                client_config, SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
@@ -106,7 +109,7 @@ def build_folium_map(df, jitter=0.005):
             f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
             f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
             f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
-            f"<b>Payment:</b> {row['Payment Method']} <br>" +
+            f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +
             f"<b>About Me:</b> {row['About Me']} <br>" +
             f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
             , max_width = 200
@@ -161,19 +164,21 @@ def build_folium_map(df, jitter=0.005):
         locateOptions=dict(maxZoom=13)
     ).add_to(m)
 
-    # m.save('index.html')
-    print(type(m))
+    m.save('index.html')
     
     return m._repr_html_()
 
 
-df = get_google_sheet('16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
+df = get_google_sheet(credentials, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
 
 app.layout = html.Div(children=[
     html.H1('Volunteer Atlas'),
-    html.Iframe(id='map', srcDoc=build_folium_map(df), width='100%', height=1000),
+    html.Iframe(id='folium-map', srcDoc=build_folium_map(df), style=dict(width='100%', height=1000, overflow='hidden')), #DEBUG: Fix IFrame y-scroll bar
     html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas'),
 ])
 
 if __name__ == '__main__':
     app.run_server(debug=True, port= 5000)
+
+dict(width='100%', height=1000, overflow='hidden')
+

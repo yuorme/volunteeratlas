@@ -137,7 +137,7 @@ app.layout = html.Div(children=[
         dcc.Tab(label='About Us', value='tab-about', className='custom-tab', selected_className='custom-tab--selected'),
     ]),
     html.Div(id='tabs-content'),
-    html.Div(id='footer', children=[html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas')])
+    html.Div(id='footer', children=[html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas', target='_blank')])
 ])
 
 @app.callback(Output('tabs-content', 'children'),

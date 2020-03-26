@@ -14,6 +14,7 @@ import folium
 from folium.plugins import LocateControl, MarkerCluster
 
 import dash
+from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -21,8 +22,9 @@ import dash_html_components as html
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-# gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #hack (local): windows env double quotes issue
-gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
+
+# gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
+gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #hack (local): windows env double quotes issue
 
 def get_sheets_df(gc, sheet_id):
     '''get and process google sheets into a dataframe
@@ -78,7 +80,7 @@ def build_folium_map(df, jitter=0.005):
     
     #build map
     m = folium.Map(
-        location=[53.981843, -97.564298], #Canada
+        location=[42, -97.5], #Canada
         tiles='Stamen Terrain',
         zoom_start=4,
         control_scale=True
@@ -127,10 +129,35 @@ def build_folium_map(df, jitter=0.005):
 df = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
 
 app.layout = html.Div(children=[
-    html.H1('Volunteer Atlas'),
-    html.Iframe(id='folium-map', srcDoc=build_folium_map(df), style=dict(width='100%', height=1000, overflow='hidden')), #DEBUG: Fix IFrame y-scroll bar
-    html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas'),
+    html.H3('VolunteerAtlas'),
+    dcc.Tabs(id="tabs", value='tab-map', children=[
+        dcc.Tab(label='Interactive Map', value='tab-map', className='custom-tab', selected_className='custom-tab--selected'),
+        dcc.Tab(label='Volunteer Signup Form', value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected'),
+        dcc.Tab(label='Delivery Request Form', value='tab-delivery', className='custom-tab', selected_className='custom-tab--selected'),
+        dcc.Tab(label='About Us', value='tab-about', className='custom-tab', selected_className='custom-tab--selected'),
+    ]),
+    html.Div(id='tabs-content'),
+    html.Div(id='footer', children=[html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas')])
 ])
+
+@app.callback(Output('tabs-content', 'children'),
+              [Input('tabs', 'value')])
+def render_content(tab, iframe_height=800):
+    if tab == 'tab-map':
+        return html.Iframe(
+            id='folium-map', 
+            srcDoc=build_folium_map(df), 
+            style=dict(width='100%', height=iframe_height, overflow='hidden')
+            ) #DEBUG: Fix IFrame y-scroll bar
+    elif tab == 'tab-volunteer':
+        return html.Iframe(
+            id='volunteer-form', 
+            src='https://forms.gle/yf55gCSZr1q29g2w9', 
+            style=dict(width='100%', height=iframe_height,)),
+    elif tab == 'tab-delivery':
+        return html.H5('Under Construction...')
+    elif tab == 'tab-about':
+        return html.H5('Under Construction...')
 
 if __name__ == '__main__':
     app.run_server(debug=True, port= 5000)

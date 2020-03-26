@@ -23,8 +23,10 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
-gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
-# gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #hack (local): windows env double quotes issue
+if os.environ.get('GDRIVE_API_CREDENTIALS') is not None:
+    gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
+else:
+    gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #local: hack due to windows env double quotes issue
 
 def get_sheets_df(gc, sheet_id):
     '''get and process google sheets into a dataframe

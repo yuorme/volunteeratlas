@@ -21,6 +21,7 @@ import dash_html_components as html
 #initialize app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app.title = 'VolunteerAtlas'
 server = app.server
 
 if os.environ.get('GDRIVE_API_CREDENTIALS') is not None:
@@ -162,6 +163,6 @@ def render_content(tab, iframe_height=800):
         return html.H5('Under Construction...')
 
 if __name__ == '__main__':
-    app.run_server(debug=False, port= 5000)
+    app.run_server(debug=True, port= 5000)
 
 

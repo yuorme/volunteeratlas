@@ -8,9 +8,7 @@ import pickle
 import os
 import json
 
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+import pygsheets
 
 import folium
 from folium.plugins import LocateControl, MarkerCluster
@@ -23,57 +21,15 @@ import dash_html_components as html
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-credentials = os.environ['GOOGLE_CREDENTIALS_JSON'].replace('`','"') #HACK: dumb windows hack because double quotes (") can't be escaped in env variables AFAIK
-credentials = json.loads(credentials)
+# gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #hack (local): windows env double quotes issue
+gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
 
-def get_google_sheet(client_config, spreadsheet_id, range_name):
-    """Shows basic usage of the Sheets API.
-    spreadsheet_id (string): google sheets id 
-    range_name (string): sheetname and range 
-    """
-    
-    # If modifying these scopes, delete the file token.pickle.
-    SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-    
-    creds = None
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_config(
-                client_config, SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('sheets', 'v4', credentials=creds)
-
-    # Call the Sheets API
-    sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=spreadsheet_id,
-                                range=range_name).execute()
-    values = result.get('values', [])
-
-    if not values:
-        print('No data found.')
-        sys.exit()
-    
-    return process_sheets_df(result)
-
-def process_sheets_df(result):
-    '''process google sheets json into a dataframe
-    result (dict): Object returned by get_google_sheet function
+def get_sheets_df(gc, sheet_id):
+    '''get and process google sheets into a dataframe
     '''
 
-    df = pd.DataFrame(data=result['values'][1:], columns=result['values'][0])
+    sh = gc.open_by_key(sheet_id) #TODO: hide ID as env var
+    df = sh.sheet1.get_as_df()
 
     #process df
     df['Timestamp'] = pd.to_datetime(df['Timestamp'])
@@ -168,8 +124,7 @@ def build_folium_map(df, jitter=0.005):
     
     return m._repr_html_()
 
-
-df = get_google_sheet(credentials, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4', 'Form Responses 1!A1:Z10000000')
+df = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
 
 app.layout = html.Div(children=[
     html.H1('Volunteer Atlas'),
@@ -180,5 +135,4 @@ app.layout = html.Div(children=[
 if __name__ == '__main__':
     app.run_server(debug=True, port= 5000)
 
-dict(width='100%', height=1000, overflow='hidden')
 

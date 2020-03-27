@@ -50,7 +50,9 @@ def get_sheets_df(gc, sheet_id):
 
     return df
 
-def build_folium_map(df, jitter=0.005):
+def build_folium_map(jitter=0.005):
+
+    df = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
     
     def get_popup_html(row):
         '''Builds a folium HTML popup to display in folium marker objects
@@ -129,8 +131,6 @@ def build_folium_map(df, jitter=0.005):
     
     return m._repr_html_()
 
-df = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-
 app.layout = html.Div(children=[
     html.H4('VolunteerAtlas'),
     dcc.Tabs(id="tabs", value='tab-map', children=[
@@ -149,7 +149,7 @@ def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
         return html.Iframe(
             id='folium-map', 
-            srcDoc=build_folium_map(df), 
+            srcDoc=build_folium_map(), 
             style=dict(width='100%', height=iframe_height, overflow='hidden') #DEBUG: Fix IFrame y-scroll bar
             ) 
     elif tab == 'tab-volunteer':

@@ -161,7 +161,7 @@ def render_content(tab, iframe_height=800):
     elif tab == 'tab-delivery':
         return html.Iframe(
             id='request-form', 
-            src='https://forms.gle/4nC4E1Xtdnrjdbio6', 
+            src='https://forms.gle/Rq27Fd5ohcR6bFXJA', 
             style=dict(width='100%', height=iframe_height,)
             ) 
     elif tab == 'tab-about':
@@ -172,7 +172,7 @@ def render_content(tab, iframe_height=800):
                 html.P("Self isolation for the most at-risk individuals in our community will require essentials like food and medicine be delivered to their doorsteps. If you're a young, healthy person with no dependents, and have been practicing social distancing, maybe you’d like to help."),
                 html.H5('Privacy'),
                 html.P("We take your privacy seriously. Only your Given Name, Email Address and About Me sections will be shared on the website. All additional personal information will only be accessible  by admins and will be used solely to confirm identities and protect those we are seeking to help."),
-                html.P("Our system is also designed to protect your physical location. We only ask for a postal code (not your home address) and use that to generate an approximate location. We then add an additional 500m of random noise to this approximate location to further protect your privacy. For a list of other frequently asked questions, please see the FAQs at the bottom of this page."),
+                html.P("Our system is also designed to protect your physical location. We only ask for a postal code (not your home address) and use that to generate an approximate location. We then add an additional 500m of random noise to this approximate location to further protect your privacy."),
                 html.H5('FAQs'),
                 html.P("Why might posting my information on this website be more helpful than just posting on Facebook/Twitter?"),
                 html.P("Vulnerable people needing help the most are likely those who do not live in the same city as their close relatives/friends. Close relatives who live outside of the locality are less likely to see or be aware of Facebook groups or Twitter posts from localized help groups. Also, social media is ephemeral, if you are offering to help over a course of weeks or months, putting your information into a central repository is a more effective way to do it."),

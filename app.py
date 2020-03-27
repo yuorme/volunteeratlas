@@ -155,13 +155,13 @@ def render_content(tab, iframe_height=800):
     elif tab == 'tab-volunteer':
         return html.Iframe(
             id='volunteer-form', 
-            src='https://forms.gle/yf55gCSZr1q29g2w9', 
+            src='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true', 
             style=dict(width='100%', height=iframe_height,)
             )
     elif tab == 'tab-delivery':
         return html.Iframe(
             id='request-form', 
-            src='https://forms.gle/Rq27Fd5ohcR6bFXJA', 
+            src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true', 
             style=dict(width='100%', height=iframe_height,)
             ) 
     elif tab == 'tab-about':

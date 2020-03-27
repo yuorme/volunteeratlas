@@ -23,10 +23,31 @@
     align-items: center;
     justify-content: center;
 }
-.custom-tab--selected {
+.custom-tab--selected-map {
+    color: black;
+    box-shadow: 1px 1px 0px white;
+    border-left: 2px solid lightgrey !important;
+    border-right: 2px solid lightgrey !important;
+    border-top: 4px solid #FF9800 !important;
+}
+.custom-tab--selected-volform {
     color: black;
     box-shadow: 1px 1px 0px white;
     border-left: 2px solid lightgrey !important;
     border-right: 2px solid lightgrey !important;
     border-top: 4px solid #009688 !important;
+}
+.custom-tab--selected-delform {
+    color: black;
+    box-shadow: 1px 1px 0px white;
+    border-left: 2px solid lightgrey !important;
+    border-right: 2px solid lightgrey !important;
+    border-top: 4px solid #FF5722 !important;
+}
+.custom-tab--selected-about {
+    color: black;
+    box-shadow: 1px 1px 0px white;
+    border-left: 2px solid lightgrey !important;
+    border-right: 2px solid lightgrey !important;
+    border-top: 4px solid #4CAF50 !important;
 }

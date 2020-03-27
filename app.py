@@ -134,10 +134,10 @@ df = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hi
 app.layout = html.Div(children=[
     html.H4('VolunteerAtlas'),
     dcc.Tabs(id="tabs", value='tab-map', children=[
-        dcc.Tab(label='Interactive Map', value='tab-map', className='custom-tab', selected_className='custom-tab--selected'),
-        dcc.Tab(label='Volunteer Signup Form', value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected'),
-        dcc.Tab(label='Delivery Request Form', value='tab-delivery', className='custom-tab', selected_className='custom-tab--selected'),
-        dcc.Tab(label='About Us', value='tab-about', className='custom-tab', selected_className='custom-tab--selected'),
+        dcc.Tab(label='Interactive Map', value='tab-map', className='custom-tab', selected_className='custom-tab--selected-map'),
+        dcc.Tab(label='Volunteer Signup Form', value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected-volform'),
+        dcc.Tab(label='Delivery Request Form', value='tab-delivery', className='custom-tab', selected_className='custom-tab--selected-delform'),
+        dcc.Tab(label='About Us', value='tab-about', className='custom-tab', selected_className='custom-tab--selected-about'),
     ]),
     html.Div(id='tabs-content'),
     html.Div(id='footer', children=[])

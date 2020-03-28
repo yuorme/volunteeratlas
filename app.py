@@ -160,7 +160,7 @@ def build_folium_map():
     return m._repr_html_()
 
 app.layout = html.Div(children=[
-    html.H4('VolunteerAtlas'),
+    html.Center(html.Img(src=app.get_asset_url('banner.png'), height='25%', width='25%')),
     dcc.Tabs(id="tabs", value='tab-map', children=[
         dcc.Tab(label='Interactive Map', value='tab-map', className='custom-tab', selected_className='custom-tab--selected-map'),
         dcc.Tab(label='Volunteer Signup Form', value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected-volform'),

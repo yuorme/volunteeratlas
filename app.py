@@ -24,7 +24,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = 'VolunteerAtlas'
 server = app.server
 
-if os.environ.get('GDRIVE_API_CREDENTIALS') is not None:
+if os.environ.get('GDRIVE_API_CREDENTIALS') is not None and '`' not in os.environ.get('GDRIVE_API_CREDENTIALS'):
     gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
 else:
     gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #local: hack due to windows env double quotes issue
@@ -33,56 +33,72 @@ def get_sheets_df(gc, sheet_id):
     '''get and process google sheets into a dataframe
     '''
 
-    sh = gc.open_by_key(sheet_id) #TODO: hide ID as env var
-    df = sh.sheet1.get_as_df()
+    sh = gc.open_by_key(sheet_id) 
+    df1 = sh.worksheet_by_title("Volunteers").get_as_df()
+    df2 = sh.worksheet_by_title("Requests").get_as_df()
 
     #process df
-    df['Timestamp'] = pd.to_datetime(df['Timestamp'])
-    df['Radius'] = df['Radius'].str.replace('km','').astype(float)
+    df1['Radius'] = df1['Radius'].str.replace('km','').astype(float)
 
-    df['Latitude'] = df['Latitude'].replace('', np.nan, regex=False) \
-        .astype(float)
-    df['Longtitude'] = df['Longtitude'].replace('', np.nan, regex=False) \
-        .astype(float) 
+    def process_df(df, jitter=0.005):
+        '''process columns common to volunteer and request dataframes
+        '''
+        df['Timestamp'] = pd.to_datetime(df['Timestamp'])
+        df['Latitude'] = df['Latitude'].replace('', np.nan, regex=False)\
+            .astype(float).apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
+        df['Longtitude'] = df['Longtitude'].replace('', np.nan, regex=False)\
+            .astype(float).apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
+
+        return df
+
+    return process_df(df1), process_df(df2)
+
+def build_folium_map():
+
+    df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
     
-    start_index=100000
-    df['VID'] = list(range(start_index, start_index+len(df)))
-
-    return df
-
-def build_folium_map(jitter=0.005):
-
-    df = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-    
-    def get_popup_html(row):
+    def get_popup_html(row, category):
         '''Builds a folium HTML popup to display in folium marker objects
         row (pandas Series): row from the google sheets dataframe
         '''
         email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
         va_email = 'volunteers.atlas@gmail.com'
-        
-        return folium.Popup(
-            f"<b>Name:</b> {row['Given Name']} <br>" +  
-            f"<b>Country:</b> {row['Country']} <br>" +
-            f"<b>City:</b> {row['City/Town']} <br>" +
-#             f"<b>Neighborhood:</b> {row['Neighborhood']} <br>" + #get from geocode
-            f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +
-            f"<b>Services:</b> {row['Type of Services']} <br>" +
-            f"<b>Radius:</b> {int(row['Radius'])} km <br>" +
-            f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
-            f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
-            f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
-            f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +
-            f"<b>About Me:</b> {row['About Me']} <br>" +
-            f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
-            , max_width = 200
+
+        if category == 'Volunteers':
+            popup = folium.Popup(
+                f"<b>Name:</b> {row['Given Name']} <br>" +  
+                f"<b>Country:</b> {row['Country']} <br>" +
+                f"<b>City:</b> {row['City/Town']} <br>" +
+    #             f"<b>Neighborhood:</b> {row['Neighborhood']} <br>" + #get from geocode
+                f"<b>Services:</b> {row['Type of Services']} <br>" +
+                f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +
+                f"<b>Radius:</b> {int(row['Radius'])} km <br>" +
+                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
+                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
+                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
+                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +
+                f"<b>About Me:</b> {row['About Me']} <br>" +
+                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
+                , max_width = 200
             )
-    
-    dff = df.dropna(axis=0, how='any', subset=['Latitude','Longtitude'])
-    dff = dff.loc[(dff.Health == 'Yes') & (dff.Availability == 'Yes')]
-    dff['Latitude'] = dff['Latitude'].apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
-    dff['Longtitude'] = dff['Longtitude'].apply(lambda x: x+np.random.uniform(-jitter,jitter))
-    
+        elif category == 'Requests':
+            popup = folium.Popup(
+                f"<b>Name:</b> {row['Given Name']} <br>" +  
+                f"<b>Country:</b> {row['Country']} <br>" +
+                f"<b>City:</b> {row['City/Town']} <br>" +
+    #             f"<b>Neighborhood:</b> {row['Neighborhood']} <br>" + #get from geocode
+                f"<b>Services:</b> {row['Type of Services']} <br>" +
+                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
+                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
+                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
+                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +
+                f"<b>About Me:</b> {row['About Me']} <br>" +
+                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
+                , max_width = 200
+            )
+        
+        return popup
+      
     #build map
     m = folium.Map(
         location=[42, -97.5], #Canada
@@ -91,27 +107,41 @@ def build_folium_map(jitter=0.005):
         control_scale=True
     )
 
-    #add marker cluster
-    mc = MarkerCluster(
-        name='Volunteers', 
-        control=True,
-        overlay=True,
-        showCoverageOnHover=False
-    )
+    def build_marker_cluster(m, df, category):
 
-    #add circle markers
-    for idx, row in dff.iterrows():
-        mc.add_child(
-            folium.Circle(
-#                 radius=row['Radius']*250,
-                radius=400,
-                location=[row['Latitude'], row['Longtitude']],
-                popup=get_popup_html(row),
-                color='#00d700',
-                fill=True,
-                fill_color='#00d700'
-            )
-        ).add_to(m)
+        dff = df.dropna(axis=0, how='any', subset=['Latitude','Longtitude']).copy()
+        dff = dff.loc[(dff.Health == 'Yes')]
+        
+        if category == 'Volunteers':
+            dff = dff.loc[(dff.Availability == 'Yes')]
+            marker_color = '#00d700'
+        elif category == 'Requests':
+            marker_color = '#d77a00'
+
+        #add marker cluster
+        mc = MarkerCluster(
+            name=category, 
+            control=True,
+            overlay=True,
+            showCoverageOnHover=False
+        )
+
+        #add circle markers
+        for idx, row in dff.iterrows():
+            mc.add_child(
+                folium.Circle(
+    #                 radius=row['Radius']*250,
+                    radius=300,
+                    location=[row['Latitude'], row['Longtitude']],
+                    popup=get_popup_html(row, category),
+                    color=marker_color,
+                    fill=True,
+                    fill_color=marker_color
+                )
+            ).add_to(m)
+
+    build_marker_cluster(m, df_vol, 'Volunteers')
+    build_marker_cluster(m, df_req, 'Requests')
 
     #add layer control
     folium.LayerControl(
@@ -126,8 +156,6 @@ def build_folium_map(jitter=0.005):
         returnToPrevBounds=True,
         locateOptions=dict(maxZoom=13)
     ).add_to(m)
-
-    m.save('index.html')
     
     return m._repr_html_()
 

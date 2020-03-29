@@ -80,7 +80,7 @@ def build_folium_map():
                 f"<b>About Me:</b> {row['About Me']} <br>" +\
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
         elif category == 'Requests':
-            html = '<head><style>body{font-size:14px;}</style></head><body>'+\
+            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
                 f"<b>Name:</b> {row['Given Name']} <br>" +  \
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\

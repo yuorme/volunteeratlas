@@ -66,7 +66,7 @@ def build_folium_map():
         va_email = 'volunteers.atlas@gmail.com'
 
         if category == 'Volunteers':
-            html = '<head><style>body{font-size:14px;}</style></head><body>'+\
+            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
                 f"<b>Name:</b> {row['Given Name']} <br>" +  \
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\

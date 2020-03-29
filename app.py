@@ -56,7 +56,8 @@ def get_sheets_df(gc, sheet_id):
 def build_folium_map():
 
     df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-    
+    #df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+
     def get_popup_html(row, category):
         '''Builds a folium HTML popup to display in folium marker objects
         row (pandas Series): row from the google sheets dataframe
@@ -65,38 +66,37 @@ def build_folium_map():
         va_email = 'volunteers.atlas@gmail.com'
 
         if category == 'Volunteers':
-            popup = folium.Popup(
-                f"<b>Name:</b> {row['Given Name']} <br>" +  
-                f"<b>Country:</b> {row['Country']} <br>" +
-                f"<b>City:</b> {row['City/Town']} <br>" +
-    #             f"<b>Neighborhood:</b> {row['Neighborhood']} <br>" + #get from geocode
-                f"<b>Services:</b> {row['Type of Services']} <br>" +
-                f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +
-                f"<b>Radius:</b> {int(row['Radius'])} km <br>" +
-                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
-                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
-                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
-                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +
-                f"<b>About Me:</b> {row['About Me']} <br>" +
-                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
-                , max_width = 200
-            )
+            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
+                f"<b>Name:</b> {row['Given Name']} <br>" +  \
+                f"<b>Country:</b> {row['Country']} <br>" +\
+                f"<b>City:</b> {row['City/Town']} <br>" +\
+                f"<b>Services:</b> {row['Type of Services']} <br>" +\
+                f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +\
+                f"<b>Radius:</b> {int(row['Radius'])} km <br>" +\
+                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +\
+                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +\
+                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +\
+                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
+                f"<b>About Me:</b> {row['About Me']} <br>" +\
+                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
         elif category == 'Requests':
-            popup = folium.Popup(
-                f"<b>Name:</b> {row['Given Name']} <br>" +  
-                f"<b>Country:</b> {row['Country']} <br>" +
-                f"<b>City:</b> {row['City/Town']} <br>" +
-    #             f"<b>Neighborhood:</b> {row['Neighborhood']} <br>" + #get from geocode
-                f"<b>Services:</b> {row['Type of Services']} <br>" +
-                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +
-                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +
-                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +
-                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +
-                f"<b>About Me:</b> {row['About Me']} <br>" +
-                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br>"
-                , max_width = 200
-            )
-        
+            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
+                f"<b>Name:</b> {row['Given Name']} <br>" +  \
+                f"<b>Country:</b> {row['Country']} <br>" +\
+                f"<b>City:</b> {row['City/Town']} <br>" +\
+                f"<b>Services:</b> {row['Type of Services']} <br>" +\
+                f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +\
+                f"<b>Radius:</b> {int(row['Radius'])} km <br>" +\
+                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +\
+                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +\
+                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +\
+                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
+                f"<b>About Me:</b> {row['About Me']} <br>" +\
+                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
+ 
+        iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=300)
+        popup = folium.Popup(iframe)
+    
         return popup
       
     #build map

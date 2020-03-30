@@ -94,18 +94,10 @@ def build_folium_map():
                 f"<b>About Me:</b> {row['About Me']} <br>" +\
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
  
-        iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=300)
+        iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=len(html)/2.2-15)
         popup = folium.Popup(iframe)
     
         return popup
-      
-    #build map
-    m = folium.Map(
-        location=[42, -97.5], #Canada
-        tiles='Stamen Terrain',
-        zoom_start=4,
-        control_scale=True
-    )
 
     def build_marker_cluster(m, df, category):
 
@@ -139,6 +131,15 @@ def build_folium_map():
                     fill_color=marker_color
                 )
             ).add_to(m)
+
+    #build map
+    m = folium.Map(
+        location=[42, -97.5], #Canada
+        tiles='Stamen Terrain',
+        min_zoom=3,
+        zoom_start=4,
+        control_scale=True
+    )
 
     build_marker_cluster(m, df_vol, 'Volunteers')
     build_marker_cluster(m, df_req, 'Requests')

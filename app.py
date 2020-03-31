@@ -55,8 +55,8 @@ def get_sheets_df(gc, sheet_id):
 
 def build_folium_map():
 
-    df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-    #df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+    #df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
+    df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
 
     def get_popup_html(row, category):
         '''Builds a folium HTML popup to display in folium marker objects
@@ -198,11 +198,29 @@ about_text = dcc.Markdown('''
               [Input('tabs', 'value')])
 def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
-        return html.Iframe(
+        return html.Div([
+            dcc.Dropdown(
+                id='map-filters',
+                options=[
+                    {'label':'Monday', 'value':'Mon'},
+                    {'label':'Tuesday', 'value':'Tue'},
+                    {'label':'Wednesday', 'value':'Wed'},
+                    {'label':'Thursday', 'value':'Thu'},
+                    {'label':'Friday', 'value':'Fri'},
+                    {'label':'Saturday', 'value':'Sat'},
+                    {'label':'Sunday', 'value':'Sun'},
+                    {'label':'Morning', 'value':'Morning'},
+                    {'label':'Afternoon', 'value':'Afternoon'},
+                    {'label':'Evening', 'value':'Evening'},
+                    ], #TODO: have it assign labels programmatically based on availibilities of current volunteers (ie, if nobody is free on mondays, that option will not be available for the filter)
+                multi=True
+                ),
+            html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 
             style=dict(width='100%', height=iframe_height, overflow='hidden') #DEBUG: Fix IFrame y-scroll bar
-            ) 
+            )
+            ])
     elif tab == 'tab-volunteer':
         return html.Iframe(
             id='volunteer-form', 

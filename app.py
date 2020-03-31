@@ -200,7 +200,7 @@ def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
         return html.Div([
             dcc.Dropdown(
-                id='map-filters',
+                id='filters-time',
                 options=[
                     {'label':'Monday', 'value':'Mon'},
                     {'label':'Tuesday', 'value':'Tue'},
@@ -213,8 +213,29 @@ def render_content(tab, iframe_height=800):
                     {'label':'Afternoon', 'value':'Afternoon'},
                     {'label':'Evening', 'value':'Evening'},
                     ], #TODO: have it assign labels programmatically based on availibilities of current volunteers (ie, if nobody is free on mondays, that option will not be available for the filter)
-                multi=True
+                multi=True,
+                placeholder='Select Days/Times of availability'
                 ),
+            dcc.Dropdown(
+                id='filters-servicetype',
+                options=[
+                    {'label':'Groceries', 'value':'Groceries'},
+                    {'label':'Pharmacy', 'value':'Pharmacy'},
+                    {'label':'Household Supplies', 'value':'Household Supplies'},
+                    {'label':'Other Errands', 'value':'Other Errands'}
+                    ],
+                multi=True,
+                placeholder='Select type of service'),
+            dcc.Dropdown(
+                id='filters-finance',
+                options=[
+                    {'label':'Cash', 'value':'Cash'},
+                    {'label':'Cheque', 'value':'Cheque'},
+                    {'label':'Electronic Money Transfer', 'value':'Electronic Money Transfer'},
+                    ],
+                multi=True,
+                placeholder='Select reimbursment type'),
+
             html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 

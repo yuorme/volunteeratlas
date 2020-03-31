@@ -235,7 +235,6 @@ def render_content(tab, iframe_height=800):
                     ],
                 multi=True,
                 placeholder='Select reimbursment type'),
-
             html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 

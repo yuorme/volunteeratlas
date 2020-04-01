@@ -150,7 +150,7 @@ def build_folium_map():
     )
 
     build_marker_cluster(m, df_vol, 'Volunteers')
-    build_marker_cluster(m, df_req, 'Requests')
+    # build_marker_cluster(m, df_req, 'Requests') #BUG: Hotfix for Requests sheet breaking
 
     #add layer control
     folium.LayerControl(

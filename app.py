@@ -41,7 +41,10 @@ def get_sheets_df(gc, sheet_id):
 
     sh = gc.open_by_key(sheet_id) 
     df1 = sh.worksheet_by_title("Volunteers").get_as_df()
-    df2 = sh.worksheet_by_title("Requests").get_as_df()
+    df2 = sh.worksheet_by_title("Volunteers").get_as_df() #HACK: Hotfix until I debug the Requests sheet
+    # df2 = sh.worksheet_by_title("Requests").get_as_df()
+
+    print(df1.info())
 
     #process df
     df1['Radius'] = df1['Radius'].str.replace('km','').astype(float)
@@ -62,7 +65,7 @@ def get_sheets_df(gc, sheet_id):
 def build_folium_map():
 
     df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-    #df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+    # df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
 
     def get_popup_html(row, category):
         '''Builds a folium HTML popup to display in folium marker objects
@@ -173,9 +176,11 @@ app.layout = html.Div(children=[
         dcc.Tab(label='Volunteer Signup Form', value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected-volform'),
         dcc.Tab(label='Delivery Request Form', value='tab-delivery', className='custom-tab', selected_className='custom-tab--selected-delform'),
         dcc.Tab(label='About Us', value='tab-about', className='custom-tab', selected_className='custom-tab--selected-about'),
-    ]),
-    html.Div(id='tabs-content'),
-    html.Div(id='footer', children=[])
+        ]
+        , style={'height':'20%','width':'100%'} 
+    ),
+    html.Div(id='tabs-content', style={'height':'70%','width':'100%'} ),
+    html.Div(id='footer', children=[], style={'height':'10%','width':'100%'})
 ])
 
 about_text = dcc.Markdown('''
@@ -208,7 +213,9 @@ def render_content(tab, iframe_height=800):
         return html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 
-            style=dict(width='100%', height=iframe_height, overflow='hidden') #DEBUG: Fix IFrame y-scroll bar
+            height='100%',
+            width='100%',
+            style={'overflow':'hidden','overflow-x':'hidden','overflow-y':'hidden','height':'100%','width':'100%'} #DEBUG: Fix IFrame y-scroll bar
             ) 
     elif tab == 'tab-volunteer':
         return html.Iframe(
@@ -233,6 +240,6 @@ def render_content(tab, iframe_height=800):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port= 5000)
+    app.run_server(debug=False, port= 5000)
 
 

@@ -95,7 +95,6 @@ def build_folium_map():
                 f"<b>City:</b> {row['City/Town']} <br>" +\
                 f"<b>Services:</b> {row['Type of Services']} <br>" +\
                 f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +\
-                f"<b>Radius:</b> {int(row['Radius'])} km <br>" +\
                 f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +\
                 f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +\
                 f"<b>Languages:</b> {row['Languages Spoken']} <br>" +\
@@ -213,9 +212,9 @@ def render_content(tab, iframe_height=800):
         return html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 
-            height='100%',
+            height=iframe_height,
             width='100%',
-            style={'overflow':'hidden','overflow-x':'hidden','overflow-y':'hidden','height':'100%','width':'100%'} #DEBUG: Fix IFrame y-scroll bar
+            style={'overflow':'hidden','overflow-x':'hidden','overflow-y':'hidden'} #DEBUG: Fix IFrame y-scroll bar
             ) 
     elif tab == 'tab-volunteer':
         return html.Iframe(

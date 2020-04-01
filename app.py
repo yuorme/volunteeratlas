@@ -75,6 +75,7 @@ def build_folium_map():
         if category == 'Volunteers':
             email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
             html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
+                f'<b>Volunteer</b>' + \
                 f"<b>Name:</b> {row['Given Name']} <br>" +  \
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\
@@ -89,6 +90,7 @@ def build_folium_map():
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
         elif category == 'Requests':
             html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
+                f'<b>Delivery Request</b>' + \
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\
                 f"<b>Services:</b> {row['Type of Services']} <br>" +\
@@ -125,7 +127,7 @@ def build_folium_map():
         #add circle markers
         for idx, row in dff.iterrows():
 
-            dense_cities = ['Montreal','Toronto','Ottawa','Montréal','Cote St Luc'] #HACK: make people outside major clusters reflect their true radius
+            dense_cities = ['Montreal','Toronto','Ottawa','Montréal','Cote St Luc','Gatineau'] #HACK: make people outside major clusters reflect their true radius
             if category == 'Volunteers' and row['City/Town'] not in dense_cities:
                 radius = row['Radius']*1000
             else:

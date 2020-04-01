@@ -44,8 +44,6 @@ def get_sheets_df(gc, sheet_id):
     df2 = sh.worksheet_by_title("Volunteers").get_as_df() #HACK: Hotfix until I debug the Requests sheet
     # df2 = sh.worksheet_by_title("Requests").get_as_df()
 
-    print(df1.info())
-
     #process df
     df1['Radius'] = df1['Radius'].str.replace('km','').astype(float)
 

@@ -49,6 +49,7 @@ def get_sheets_df(gc, sheet_id):
     def process_df(df, jitter=0.005):
         '''process columns common to volunteer and request dataframes
         '''
+        df['City/Town'] = df['City/Town'].str.title()
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
         df['Latitude'] = df['Latitude'].replace('', np.nan, regex=False)\
             .astype(float).apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
@@ -123,10 +124,16 @@ def build_folium_map():
 
         #add circle markers
         for idx, row in dff.iterrows():
+
+            dense_cities = ['Montreal','Toronto','Ottawa','Montréal','Cote St Luc'] #HACK: make people outside major clusters reflect their true radius
+            if category == 'Volunteers' and row['City/Town'] not in dense_cities:
+                radius = row['Radius']*1000
+            else:
+                radius = 500
+
             mc.add_child(
                 folium.Circle(
-    #                 radius=row['Radius']*250,
-                    radius=300,
+                    radius=radius,
                     location=[row['Latitude'], row['Longtitude']],
                     popup=get_popup_html(row, category),
                     color=marker_color,

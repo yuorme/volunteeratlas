@@ -41,8 +41,7 @@ def get_sheets_df(gc, sheet_id):
 
     sh = gc.open_by_key(sheet_id) 
     df1 = sh.worksheet_by_title("Volunteers").get_as_df()
-    df2 = sh.worksheet_by_title("Volunteers").get_as_df() #HACK: Hotfix until I debug the Requests sheet
-    # df2 = sh.worksheet_by_title("Requests").get_as_df()
+    df2 = sh.worksheet_by_title("Requests").get_as_df()
 
     #process df
     df1['Radius'] = df1['Radius'].str.replace('km','').astype(float)
@@ -69,10 +68,11 @@ def build_folium_map():
         '''Builds a folium HTML popup to display in folium marker objects
         row (pandas Series): row from the google sheets dataframe
         '''
-        email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
+
         va_email = 'volunteers.atlas@gmail.com'
 
         if category == 'Volunteers':
+            email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
             html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
                 f"<b>Name:</b> {row['Given Name']} <br>" +  \
                 f"<b>Country:</b> {row['Country']} <br>" +\
@@ -88,17 +88,15 @@ def build_folium_map():
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
         elif category == 'Requests':
             html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
-                f"<b>Name:</b> {row['Given Name']} <br>" +  \
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\
                 f"<b>Services:</b> {row['Type of Services']} <br>" +\
-                f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +\
+                f"<b>Type:</b> {row['Type of Request']} <br>" +\
                 f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +\
                 f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +\
                 f"<b>Languages:</b> {row['Languages Spoken']} <br>" +\
                 f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
-                f"<b>About Me:</b> {row['About Me']} <br>" +\
-                f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
+                f"<a href='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true' target='_blank'>Sign Up to Help</a>  <br></body>"
  
         iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=len(html)/2.2-15)
         popup = folium.Popup(iframe)
@@ -108,10 +106,9 @@ def build_folium_map():
     def build_marker_cluster(m, df, category):
 
         dff = df.dropna(axis=0, how='any', subset=['Latitude','Longtitude']).copy()
-        dff = dff.loc[(dff.Health == 'Yes')]
-        
+
         if category == 'Volunteers':
-            dff = dff.loc[(dff.Availability == 'Yes')]
+            dff = dff.loc[(dff.Health == 'Yes') & (dff.Availability == 'Yes')]
             marker_color = '#00d700'
         elif category == 'Requests':
             marker_color = '#d77a00'
@@ -148,7 +145,7 @@ def build_folium_map():
     )
 
     build_marker_cluster(m, df_vol, 'Volunteers')
-    # build_marker_cluster(m, df_req, 'Requests') #BUG: Hotfix for Requests sheet breaking
+    build_marker_cluster(m, df_req, 'Requests')
 
     #add layer control
     folium.LayerControl(
@@ -212,7 +209,7 @@ def render_content(tab, iframe_height=800):
             srcDoc=build_folium_map(), 
             height=iframe_height,
             width='100%',
-            style={'overflow':'hidden','overflow-x':'hidden','overflow-y':'hidden'} #DEBUG: Fix IFrame y-scroll bar
+            style={'overflow':'hidden','overflow-x':'hidden','overflow-y':'hidden'} #ISSUE: Fix IFrame y-scroll bar
             ) 
     elif tab == 'tab-volunteer':
         return html.Iframe(
@@ -234,9 +231,5 @@ def render_content(tab, iframe_height=800):
             ]
         )
 
-
-
 if __name__ == '__main__':
     app.run_server(debug=False, port= 5000)
-
-

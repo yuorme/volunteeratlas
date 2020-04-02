@@ -146,10 +146,13 @@ def build_folium_map(filters=[]):
         if filters == []:
             return df
         else:
-            filter_columns = ['Preferred Day of Week', 'Preferred Time of Day', 'Type of Services', 'Reimbursement Method']
+            filter_columns = ['Preferred Day of Week', \
+                    'Preferred Time of Day', 'Type of Services', \
+                    'Reimbursement Method']
             split_df = pd.DataFrame()
             for ind in np.arange(len(filter_columns)):
-                split_df = pd.concat([df[filter_columns[ind]].str.split(', ', expand=True)], axis=1)
+                split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
+                        expand=True)], axis=1)
                 filtered_df = split_df.isin(filters[ind]).any(1)
                 df = df[filtered_df]
             return df
@@ -217,12 +220,12 @@ def render_content(tab, iframe_height=800):
             dcc.Markdown('### Filter by day, time, service type and payment type '),
             html.Div(style={'width':'59%',
                     'display':'inline-block',
-                    'float':'left',
-                              },
-                        children=[
-            dcc.Dropdown(
+                    'float':'left'
+                            },
+                children=[
+                dcc.Dropdown(
                 id='filters-day',
-                               options=[
+                options=[
                     {'label':'Monday', 'value':'Mon'},
                     {'label':'Tuesday', 'value':'Tue'},
                     {'label':'Wednesday', 'value':'Wed'},
@@ -239,8 +242,8 @@ def render_content(tab, iframe_height=800):
                         'display':'inline-block',
                         'float':'right',
                         },
-                    children=[
-            dcc.Dropdown(
+            children=[
+                dcc.Dropdown(
                 id='filters-time',
                  options=[
                     {'label':'Morning', 'value':'Morning'},
@@ -254,8 +257,9 @@ def render_content(tab, iframe_height=800):
             html.Div(style={'width':'49%',
                     'display':'inline-block',
                     'float':'left',
-                              }, children=[
-            dcc.Dropdown(
+                            }, 
+            children=[
+                dcc.Dropdown(
                 id='filters-servicetype',
                 options=[
                     {'label':'Groceries', 'value':'Groceries'},
@@ -270,9 +274,9 @@ def render_content(tab, iframe_height=800):
             ]),
             html.Div(style={'width':'49%',
                     'display':'inline-block',
-                    'float':'right',
-                              }, children=[
-            dcc.Dropdown(
+                    'float':'right',}, 
+            children=[
+                dcc.Dropdown(
                 id='filters-finance',
                 options=[
                     {'label':'Cash', 'value':'Cash'},

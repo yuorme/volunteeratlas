@@ -199,9 +199,15 @@ about_text = dcc.Markdown('''
 def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
         return html.Div([
+            dcc.Markdown('### Filter by day, time, service type and payment type '),
+            html.Div(style={'width':'49%',
+                    'display':'inline-block',
+                    'float':'left',
+                              },
+                        children=[
             dcc.Dropdown(
-                id='filters-time',
-                options=[
+                id='filters-day',
+                               options=[
                     {'label':'Monday', 'value':'Mon'},
                     {'label':'Tuesday', 'value':'Tue'},
                     {'label':'Wednesday', 'value':'Wed'},
@@ -209,13 +215,31 @@ def render_content(tab, iframe_height=800):
                     {'label':'Friday', 'value':'Fri'},
                     {'label':'Saturday', 'value':'Sat'},
                     {'label':'Sunday', 'value':'Sun'},
+                    ], #TODO: have it assign labels programmatically based on availibilities of current volunteers (ie, if nobody is free on mondays, that option will not be available for the filter)
+                multi=True,
+                placeholder='Select days of availability',
+                value=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                )]),
+            html.Div(style={'width':'49%',
+                        'display':'inline-block',
+                        'float':'right',
+                        },
+                    children=[
+            dcc.Dropdown(
+                id='filters-time',
+                 options=[
                     {'label':'Morning', 'value':'Morning'},
                     {'label':'Afternoon', 'value':'Afternoon'},
                     {'label':'Evening', 'value':'Evening'},
-                    ], #TODO: have it assign labels programmatically based on availibilities of current volunteers (ie, if nobody is free on mondays, that option will not be available for the filter)
+                    ],
                 multi=True,
-                placeholder='Select Days/Times of availability'
-                ),
+                placeholder='Select times of availability',
+                value=['Morning', 'Afternoon', 'Evening']
+                )]),
+            html.Div(style={'width':'49%',
+                    'display':'inline-block',
+                    'float':'left',
+                              }, children=[
             dcc.Dropdown(
                 id='filters-servicetype',
                 options=[
@@ -225,7 +249,14 @@ def render_content(tab, iframe_height=800):
                     {'label':'Other Errands', 'value':'Other Errands'}
                     ],
                 multi=True,
-                placeholder='Select type of service'),
+                placeholder='Select type of service',
+                value=['Groceries', 'Pharmacy', 'Household Supplies', 'Other Errands']),
+                
+            ]),
+            html.Div(style={'width':'49%',
+                    'display':'inline-block',
+                    'float':'right',
+                              }, children=[
             dcc.Dropdown(
                 id='filters-finance',
                 options=[
@@ -234,7 +265,9 @@ def render_content(tab, iframe_height=800):
                     {'label':'Electronic Money Transfer', 'value':'Electronic Money Transfer'},
                     ],
                 multi=True,
-                placeholder='Select reimbursment type'),
+                placeholder='Select reimbursment type',
+                value=['Cash', 'Cheque', 'Electronic Money Transfer'])
+            ]),
             html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 

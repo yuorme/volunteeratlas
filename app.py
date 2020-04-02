@@ -18,38 +18,38 @@ from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
 
-#initialize app
+# initialize app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = 'VolunteerAtlas'
 server = app.server
-app.config['suppress_callback_exceptions']=True #necessary since using dynamic callbacks (callbacks within tabs). more info here: https://community.plotly.com/t/dcc-tabs-filling-tabs-with-dynamic-content-how-to-organize-the-callbacks/6377/2 
+app.config['suppress_callback_exceptions'] = True # necessary since using dynamic callbacks (callbacks within tabs). more info here: https://community.plotly.com/t/dcc-tabs-filling-tabs-with-dynamic-content-how-to-organize-the-callbacks/6377/2
 # Downside: we will no longer get error messages if we make typos in the dcc id in callbacks, or if we create callbacks that do not link to an element in the layout
 
 if os.environ.get('GDRIVE_API_CREDENTIALS') is not None and '`' not in os.environ.get('GDRIVE_API_CREDENTIALS'):
-    gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
+    gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') # web
 else:
-    gc = pygsheets.authorize(service_file='volunteeratlas-service.json') #local: hack due to windows env double quotes issue
+    gc = pygsheets.authorize(service_file='volunteeratlas-service.json') # local: hack due to windows env double quotes issue
 
 def get_sheets_df(gc, sheet_id):
     '''get and process google sheets into a dataframe
     '''
 
-    sh = gc.open_by_key(sheet_id) 
+    sh = gc.open_by_key(sheet_id)
     df1 = sh.worksheet_by_title("Volunteers").get_as_df()
     df2 = sh.worksheet_by_title("Requests").get_as_df()
 
-    #process df
-    df1['Radius'] = df1['Radius'].str.replace('km','').astype(float)
+    # process df
+    df1['Radius'] = df1['Radius'].str.replace('km', '').astype(float)
 
     def process_df(df, jitter=0.005):
         '''process columns common to volunteer and request dataframes
         '''
         df['Timestamp'] = pd.to_datetime(df['Timestamp'])
         df['Latitude'] = df['Latitude'].replace('', np.nan, regex=False)\
-            .astype(float).apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
+            .astype(float).apply(lambda x: x+np.random.uniform(-jitter, jitter))
         df['Longtitude'] = df['Longtitude'].replace('', np.nan, regex=False)\
-            .astype(float).apply(lambda x: x+np.random.uniform(-jitter,jitter)) 
+            .astype(float).apply(lambda x: x+np.random.uniform(-jitter, jitter))
 
         return df
 
@@ -58,7 +58,7 @@ def get_sheets_df(gc, sheet_id):
 def build_folium_map(filters=[]):
 
     #df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-    df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+    df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') # Uncomment this sheet for testing (links to public sheet) and comment out line above
 
     def get_popup_html(row, category):
         '''Builds a folium HTML popup to display in folium marker objects
@@ -68,8 +68,8 @@ def build_folium_map(filters=[]):
         va_email = 'volunteers.atlas@gmail.com'
 
         if category == 'Volunteers':
-            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
-                f"<b>Name:</b> {row['Given Name']} <br>" +  \
+            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>' +\
+                f"<b>Name:</b> {row['Given Name']} <br>" +\
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\
                 f"<b>Services:</b> {row['Type of Services']} <br>" +\
@@ -82,7 +82,7 @@ def build_folium_map(filters=[]):
                 f"<b>About Me:</b> {row['About Me']} <br>" +\
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
         elif category == 'Requests':
-            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
+            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>' +\
                 f"<b>Name:</b> {row['Given Name']} <br>" +  \
                 f"<b>Country:</b> {row['Country']} <br>" +\
                 f"<b>City:</b> {row['City/Town']} <br>" +\
@@ -95,15 +95,15 @@ def build_folium_map(filters=[]):
                 f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
                 f"<b>About Me:</b> {row['About Me']} <br>" +\
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
- 
-        iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=300)
+
+        iframe = folium.IFrame(html=folium.Html(html, script=True), width=250, height=300)
         popup = folium.Popup(iframe)
-    
+
         return popup
-      
-    #build map
+
+    # build map
     m = folium.Map(
-        location=[42, -97.5], #Canada
+        location=[42, -97.5], # Canada
         tiles='Stamen Terrain',
         zoom_start=4,
         control_scale=True
@@ -111,24 +111,24 @@ def build_folium_map(filters=[]):
 
     def build_marker_cluster(m, df, category):
 
-        dff = df.dropna(axis=0, how='any', subset=['Latitude','Longtitude']).copy()
+        dff = df.dropna(axis=0, how='any', subset=['Latitude', 'Longtitude']).copy()
         dff = dff.loc[(dff.Health == 'Yes')]
-        
+
         if category == 'Volunteers':
             dff = dff.loc[(dff.Availability == 'Yes')]
             marker_color = '#00d700'
         elif category == 'Requests':
             marker_color = '#d77a00'
 
-        #add marker cluster
+        # add marker cluster
         mc = MarkerCluster(
-            name=category, 
+            name=category,
             control=True,
             overlay=True,
             showCoverageOnHover=False
         )
 
-        #add circle markers
+        # add circle markers
         for idx, row in dff.iterrows():
             mc.add_child(
                 folium.Circle(
@@ -141,15 +141,16 @@ def build_folium_map(filters=[]):
                     fill_color=marker_color
                 )
             ).add_to(m)
-
+    
+    # filter data based on chosen filters
     def filter_map(df, filters):
         filter_columns = ['Preferred Day of Week',\
-                'Preferred Time of Day', 'Type of Services', \
-                'Reimbursement Method']
+                           'Preferred Time of Day', 'Type of Services', \
+                           'Reimbursement Method']
         split_df = pd.DataFrame()
         for ind in np.arange(len(filter_columns)):
             split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
-                    expand=True)], axis=1)
+                                 expand=True)], axis=1)
             filtered_df = split_df.isin(filters[ind]).any(1)
             df = df[filtered_df]
         return df
@@ -158,20 +159,20 @@ def build_folium_map(filters=[]):
     build_marker_cluster(m, filter_map(df_vol, filters), 'Volunteers')
     build_marker_cluster(m, filter_map(df_req, filters), 'Requests')
 
-    #add layer control
+    # add layer control
     folium.LayerControl(
         collapsed=True
     ).add_to(m)
 
-    #add location control
+    # add location control
     LocateControl(
-        flyTo=True, 
+        flyTo=True,
         keepCurrentZoomLevel=False,
         showPopup=True,
         returnToPrevBounds=True,
         locateOptions=dict(maxZoom=13)
     ).add_to(m)
-    
+
     return m._repr_html_()
 
 app.layout = html.Div(children=[
@@ -215,95 +216,95 @@ def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
         return html.Div([
             dcc.Markdown('### Filter by day, time, service type and payment type '),
-            html.Div(style={'width':'59%',
-                    'display':'inline-block',
-                    'float':'left'
+            html.Div(style={'width': '59%',
+                            'display': 'inline-block',
+                            'float': 'left'
                             },
-                children=[
+                        children=[
                 dcc.Dropdown(
                 id='filters-day',
                 options=[
-                    {'label':'Monday', 'value':'Mon'},
-                    {'label':'Tuesday', 'value':'Tue'},
-                    {'label':'Wednesday', 'value':'Wed'},
-                    {'label':'Thursday', 'value':'Thu'},
-                    {'label':'Friday', 'value':'Fri'},
-                    {'label':'Saturday', 'value':'Sat'},
-                    {'label':'Sunday', 'value':'Sun'},
-                    ], 
+                    {'label': 'Monday', 'value': 'Mon'},
+                    {'label': 'Tuesday', 'value': 'Tue'},
+                    {'label': 'Wednesday', 'value': 'Wed'},
+                    {'label': 'Thursday', 'value': 'Thu'},
+                    {'label': 'Friday', 'value': 'Fri'},
+                    {'label': 'Saturday', 'value': 'Sat'},
+                    {'label': 'Sunday', 'value': 'Sun'},
+                    ],
                 multi=True,
                 placeholder='Select days of availability',
                 value=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
                 )]),
-            html.Div(style={'width':'39%',
-                        'display':'inline-block',
-                        'float':'right',
+            html.Div(style={'width': '39%',
+                            'display': 'inline-block',
+                            'float': 'right',
                         },
-            children=[
+                        children=[
                 dcc.Dropdown(
                 id='filters-time',
                  options=[
-                    {'label':'Morning', 'value':'Morning'},
-                    {'label':'Afternoon', 'value':'Afternoon'},
-                    {'label':'Evening', 'value':'Evening'},
+                    {'label': 'Morning', 'value': 'Morning'},
+                    {'label': 'Afternoon', 'value': 'Afternoon'},
+                    {'label': 'Evening', 'value': 'Evening'},
                     ],
                 multi=True,
                 placeholder='Select times of availability',
                 value=['Morning', 'Afternoon', 'Evening']
                 )]),
-            html.Div(style={'width':'41%',
-                    'display':'inline-block',
-                    'float':'left',
-                            }, 
-            children=[
+            html.Div(style={'width': '41%',
+                            'display': 'inline-block',
+                            'float': 'left',
+                            },
+                            children=[
                 dcc.Dropdown(
                 id='filters-servicetype',
                 options=[
-                    {'label':'Groceries', 'value':'Groceries'},
-                    {'label':'Pharmacy', 'value':'Pharmacy'},
-                    {'label':'Household Supplies', 'value':'Household Supplies'},
-                    {'label':'Other Errands', 'value':'Other Errands'}
+                    {'label': 'Groceries', 'value': 'Groceries'},
+                    {'label': 'Pharmacy', 'value': 'Pharmacy'},
+                    {'label': 'Household Supplies', 'value': 'Household Supplies'},
+                    {'label': 'Other Errands', 'value': 'Other Errands'}
                     ],
                 multi=True,
                 placeholder='Select type of service',
                 value=['Groceries', 'Pharmacy', 'Household Supplies', 'Other Errands']),
-                
+
             ]),
-            html.Div(style={'width':'39%',
-                    'display':'inline-block',
-                    }, 
-            children=[
+            html.Div(style={'width': '39%',
+                            'display': 'inline-block',
+                    },
+                            children=[
                 dcc.Dropdown(
                 id='filters-finance',
                 options=[
-                    {'label':'Cash', 'value':'Cash'},
-                    {'label':'Cheque', 'value':'Cheque'},
-                    {'label':'Electronic Money Transfer', 'value':'Electronic Money Transfer'},
+                    {'label': 'Cash', 'value': 'Cash'},
+                    {'label': 'Cheque', 'value': 'Cheque'},
+                    {'label': 'Electronic Money Transfer', 'value': 'Electronic Money Transfer'},
                     ],
                 multi=True,
                 placeholder='Select reimbursment type',
                 value=['Cash', 'Cheque', 'Electronic Money Transfer'])
             ]),
-            html.Div(style={'width':'19%',
-                    'display':'inline-block',
-                    'float':'right'
-                            }, 
-            children = [
+            html.Div(style={'width': '19%',
+                            'display': 'inline-block',
+                            'float': 'right'
+                            },
+                        children=[
                 html.Button('Apply Filters', id='filter-button')]),
             html.Iframe(id='folium-map', srcDoc='Loading...', style=dict(width='100%', height=iframe_height, overflow='hidden'))
             ])
     elif tab == 'tab-volunteer':
         return html.Iframe(
-            id='volunteer-form', 
-            src='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true', 
+            id='volunteer-form',
+            src='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true',
             style=dict(width='100%', height=iframe_height,)
             )
     elif tab == 'tab-delivery':
         return html.Iframe(
-            id='request-form', 
-            src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true', 
+            id='request-form',
+            src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true',
             style=dict(width='100%', height=iframe_height,)
-            ) 
+            )
     elif tab == 'tab-about':
         return html.Div(
             children=[
@@ -314,17 +315,17 @@ def render_content(tab, iframe_height=800):
 
 
 @app.callback(Output('folium-map', 'srcDoc'),
-            [Input('filter-button', 'n_clicks')],
-            [State('filters-day', 'value'),
-             State('filters-time', 'value'),
-             State('filters-servicetype', 'value'),
-             State('filters-finance', 'value')],
-            )
+             [Input('filter-button', 'n_clicks')],
+             [State('filters-day', 'value'),
+              State('filters-time', 'value'),
+              State('filters-servicetype', 'value'),
+              State('filters-finance', 'value')],
+              )
 def update_filtered_map(n_clicks, filters_day, filters_time, filters_servicetype, filters_finance):
     filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
     return build_folium_map(filter_list)
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port= 5000)
+    app.run_server(debug=True, port=5000)
 
 

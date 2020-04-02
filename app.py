@@ -230,7 +230,7 @@ def render_content(tab, iframe_height=800):
                     {'label':'Friday', 'value':'Fri'},
                     {'label':'Saturday', 'value':'Sat'},
                     {'label':'Sunday', 'value':'Sun'},
-                    ], #TODO: have it assign labels programmatically based on availibilities of current volunteers (ie, if nobody is free on mondays, that option will not be available for the filter)
+                    ], 
                 multi=True,
                 placeholder='Select days of availability',
                 value=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -287,8 +287,9 @@ def render_content(tab, iframe_height=800):
             html.Div(style={'width':'19%',
                     'display':'inline-block',
                     'float':'right'
-                            }, children = [
-                    html.Button('Apply Filters', id='filter-button')]),
+                            }, 
+            children = [
+                html.Button('Apply Filters', id='filter-button')]),
             html.Iframe(id='folium-map', srcDoc='Loading...', style=dict(width='100%', height=iframe_height, overflow='hidden'))
             ])
     elif tab == 'tab-volunteer':

@@ -23,6 +23,8 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.title = 'VolunteerAtlas'
 server = app.server
+app.config['suppress_callback_exceptions']=True #necessary since using dynamic callbacks (callbacks within tabs). more info here: https://community.plotly.com/t/dcc-tabs-filling-tabs-with-dynamic-content-how-to-organize-the-callbacks/6377/2 
+# Downside: we will no longer get error messages if we make typos in the dcc id in callbacks, or if we create callbacks that do not link to an element in the layout
 
 if os.environ.get('GDRIVE_API_CREDENTIALS') is not None and '`' not in os.environ.get('GDRIVE_API_CREDENTIALS'):
     gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') #web
@@ -268,11 +270,12 @@ def render_content(tab, iframe_height=800):
                 placeholder='Select reimbursment type',
                 value=['Cash', 'Cheque', 'Electronic Money Transfer'])
             ]),
+            html.Div(id='map-container', children=[
             html.Iframe(
             id='folium-map', 
             srcDoc=build_folium_map(), 
             style=dict(width='100%', height=iframe_height, overflow='hidden') #DEBUG: Fix IFrame y-scroll bar
-            )
+            )])
             ])
     elif tab == 'tab-volunteer':
         return html.Iframe(
@@ -295,6 +298,14 @@ def render_content(tab, iframe_height=800):
         )
 
 
+@app.callback(Output('map-container', 'children'),
+            [Input('filters-day', 'value'),
+             Input('filters-time', 'value'),
+             Input('filters-servicetype', 'value'),
+             Input('filters-finance', 'value')])
+def update_filtered_map(filters_day, filters_time, filters_servicetype, filters_finance):
+    filter_list = filters_day+filters_time+filters_servicetype+filters_finance
+    return filter_list
 
 if __name__ == '__main__':
     app.run_server(debug=True, port= 5000)

@@ -101,18 +101,11 @@ def build_folium_map(filters=[]):
                 f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
                 f"<b>About Me:</b> {row['About Me']} <br>" +\
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
-<<<<<<< HEAD
  
         iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=len(html)/2.2-15)
-=======
-
-        iframe = folium.IFrame(html=folium.Html(html, script=True), width=250, height=300)
->>>>>>> 8e46ee48ba01c56bdeeaea14bb8577b16295eb9a
         popup = folium.Popup(iframe)
 
         return popup
-<<<<<<< HEAD
-=======
 
     # build map
     m = folium.Map(
@@ -121,7 +114,6 @@ def build_folium_map(filters=[]):
         zoom_start=4,
         control_scale=True
     )
->>>>>>> 8e46ee48ba01c56bdeeaea14bb8577b16295eb9a
 
     def build_marker_cluster(m, df, category):
 
@@ -170,7 +162,6 @@ def build_folium_map(filters=[]):
         return df
 
 
-<<<<<<< HEAD
     #build map
     m = folium.Map(
         location=[42, -97.5], #Canada
@@ -180,12 +171,8 @@ def build_folium_map(filters=[]):
         control_scale=True
     )
 
-    build_marker_cluster(m, df_vol, 'Volunteers')
-    build_marker_cluster(m, df_req, 'Requests')
-=======
     build_marker_cluster(m, filter_map(df_vol, filters), 'Volunteers')
     build_marker_cluster(m, filter_map(df_req, filters), 'Requests')
->>>>>>> 8e46ee48ba01c56bdeeaea14bb8577b16295eb9a
 
     # add layer control
     folium.LayerControl(

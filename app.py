@@ -14,7 +14,7 @@ import folium
 from folium.plugins import LocateControl, MarkerCluster
 
 import dash
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -143,19 +143,16 @@ def build_folium_map(filters=[]):
             ).add_to(m)
 
     def filter_map(df, filters):
-        if filters == []:
-            return df
-        else:
-            filter_columns = ['Preferred Day of Week', \
-                    'Preferred Time of Day', 'Type of Services', \
-                    'Reimbursement Method']
-            split_df = pd.DataFrame()
-            for ind in np.arange(len(filter_columns)):
-                split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
-                        expand=True)], axis=1)
-                filtered_df = split_df.isin(filters[ind]).any(1)
-                df = df[filtered_df]
-            return df
+        filter_columns = ['Preferred Day of Week',\
+                'Preferred Time of Day', 'Type of Services', \
+                'Reimbursement Method']
+        split_df = pd.DataFrame()
+        for ind in np.arange(len(filter_columns)):
+            split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
+                    expand=True)], axis=1)
+            filtered_df = split_df.isin(filters[ind]).any(1)
+            df = df[filtered_df]
+        return df
 
 
     build_marker_cluster(m, filter_map(df_vol, filters), 'Volunteers')
@@ -254,7 +251,7 @@ def render_content(tab, iframe_height=800):
                 placeholder='Select times of availability',
                 value=['Morning', 'Afternoon', 'Evening']
                 )]),
-            html.Div(style={'width':'49%',
+            html.Div(style={'width':'41%',
                     'display':'inline-block',
                     'float':'left',
                             }, 
@@ -272,9 +269,9 @@ def render_content(tab, iframe_height=800):
                 value=['Groceries', 'Pharmacy', 'Household Supplies', 'Other Errands']),
                 
             ]),
-            html.Div(style={'width':'49%',
+            html.Div(style={'width':'39%',
                     'display':'inline-block',
-                    'float':'right',}, 
+                    }, 
             children=[
                 dcc.Dropdown(
                 id='filters-finance',
@@ -287,6 +284,11 @@ def render_content(tab, iframe_height=800):
                 placeholder='Select reimbursment type',
                 value=['Cash', 'Cheque', 'Electronic Money Transfer'])
             ]),
+            html.Div(style={'width':'19%',
+                    'display':'inline-block',
+                    'float':'right'
+                            }, children = [
+                    html.Button('Apply Filters', id='filter-button')]),
             html.Iframe(id='folium-map', srcDoc='Loading...', style=dict(width='100%', height=iframe_height, overflow='hidden'))
             ])
     elif tab == 'tab-volunteer':
@@ -311,11 +313,13 @@ def render_content(tab, iframe_height=800):
 
 
 @app.callback(Output('folium-map', 'srcDoc'),
-            [Input('filters-day', 'value'),
-             Input('filters-time', 'value'),
-             Input('filters-servicetype', 'value'),
-             Input('filters-finance', 'value')])
-def update_filtered_map(filters_day, filters_time, filters_servicetype, filters_finance):
+            [Input('filter-button', 'n_clicks')],
+            [State('filters-day', 'value'),
+             State('filters-time', 'value'),
+             State('filters-servicetype', 'value'),
+             State('filters-finance', 'value')],
+            )
+def update_filtered_map(n_clicks, filters_day, filters_time, filters_servicetype, filters_finance):
     filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
     return build_folium_map(filter_list)
 

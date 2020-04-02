@@ -55,7 +55,7 @@ def get_sheets_df(gc, sheet_id):
 
     return process_df(df1), process_df(df2)
 
-def build_folium_map():
+def build_folium_map(filters=[]):
 
     #df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
     df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
@@ -142,8 +142,21 @@ def build_folium_map():
                 )
             ).add_to(m)
 
-    build_marker_cluster(m, df_vol, 'Volunteers')
-    build_marker_cluster(m, df_req, 'Requests')
+    def filter_map(df, filters):
+        if filters == []:
+            return df
+        else:
+            filter_columns = ['Preferred Day of Week', 'Preferred Time of Day', 'Type of Services', 'Reimbursement Method']
+            split_df = pd.DataFrame()
+            for ind in np.arange(len(filter_columns)):
+                split_df = pd.concat([df[filter_columns[ind]].str.split(', ', expand=True)], axis=1)
+                filtered_df = split_df.isin(filters[ind]).any(1)
+                df = df[filtered_df]
+            return df
+
+
+    build_marker_cluster(m, filter_map(df_vol, filters), 'Volunteers')
+    build_marker_cluster(m, filter_map(df_req, filters), 'Requests')
 
     #add layer control
     folium.LayerControl(
@@ -202,7 +215,7 @@ def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
         return html.Div([
             dcc.Markdown('### Filter by day, time, service type and payment type '),
-            html.Div(style={'width':'49%',
+            html.Div(style={'width':'59%',
                     'display':'inline-block',
                     'float':'left',
                               },
@@ -222,7 +235,7 @@ def render_content(tab, iframe_height=800):
                 placeholder='Select days of availability',
                 value=['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
                 )]),
-            html.Div(style={'width':'49%',
+            html.Div(style={'width':'39%',
                         'display':'inline-block',
                         'float':'right',
                         },
@@ -270,7 +283,7 @@ def render_content(tab, iframe_height=800):
                 placeholder='Select reimbursment type',
                 value=['Cash', 'Cheque', 'Electronic Money Transfer'])
             ]),
-            html.Iframe(id='folium-map', srcDoc='temp', style=dict(width='100%', height=iframe_height, overflow='hidden'))
+            html.Iframe(id='folium-map', srcDoc='Loading...', style=dict(width='100%', height=iframe_height, overflow='hidden'))
             ])
     elif tab == 'tab-volunteer':
         return html.Iframe(
@@ -299,8 +312,8 @@ def render_content(tab, iframe_height=800):
              Input('filters-servicetype', 'value'),
              Input('filters-finance', 'value')])
 def update_filtered_map(filters_day, filters_time, filters_servicetype, filters_finance):
-    filter_list = filters_day + filters_time + filters_servicetype + filters_finance
-    return build_folium_map()
+    filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
+    return build_folium_map(filter_list)
 
 if __name__ == '__main__':
     app.run_server(debug=True, port= 5000)

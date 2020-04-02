@@ -270,12 +270,7 @@ def render_content(tab, iframe_height=800):
                 placeholder='Select reimbursment type',
                 value=['Cash', 'Cheque', 'Electronic Money Transfer'])
             ]),
-            html.Div(id='map-container', children=[
-            html.Iframe(
-            id='folium-map', 
-            srcDoc=build_folium_map(), 
-            style=dict(width='100%', height=iframe_height, overflow='hidden') #DEBUG: Fix IFrame y-scroll bar
-            )])
+            html.Iframe(id='folium-map', srcDoc='temp', style=dict(width='100%', height=iframe_height, overflow='hidden'))
             ])
     elif tab == 'tab-volunteer':
         return html.Iframe(
@@ -298,14 +293,14 @@ def render_content(tab, iframe_height=800):
         )
 
 
-@app.callback(Output('map-container', 'children'),
+@app.callback(Output('folium-map', 'srcDoc'),
             [Input('filters-day', 'value'),
              Input('filters-time', 'value'),
              Input('filters-servicetype', 'value'),
              Input('filters-finance', 'value')])
 def update_filtered_map(filters_day, filters_time, filters_servicetype, filters_finance):
-    filter_list = filters_day+filters_time+filters_servicetype+filters_finance
-    return filter_list
+    filter_list = filters_day + filters_time + filters_servicetype + filters_finance
+    return build_folium_map()
 
 if __name__ == '__main__':
     app.run_server(debug=True, port= 5000)

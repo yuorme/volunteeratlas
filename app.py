@@ -14,16 +14,17 @@ import folium
 from folium.plugins import LocateControl, MarkerCluster
 
 import dash
-from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
+from dash.dependencies import Input, Output
+
+from about import get_about_text
 
 #initialize app
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(
     __name__, 
-    external_stylesheets=external_stylesheets,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ]
@@ -61,7 +62,34 @@ def get_sheets_df(gc, sheet_id):
 
     return process_df(df1), process_df(df2)
 
-def build_folium_map():
+def translator(word, language):
+    translate_dict = {
+        'Volunteers':{'fr':'Bénévole'},
+        'Requests':{'fr':'Demandes'},
+        'Interactive Map':{'fr':'Carte interactive'},
+        'Volunteer Signup Form':{'fr':'Inscription des bénévoles'},
+        'Delivery Request Form':{'fr':'Demande de livraison'},
+        'About Us':{'fr':'À propos de nous'},
+        'Name':{'fr':'Nom'},
+        'Country':{'fr':'Pays'},
+        'City':{'fr':'Ville'},
+        'Services':{'fr':'Services'},
+        'Transportation':{'fr':'Transport'},
+        'Radius':{'fr':'Radius'},
+        'Day of Week':{'fr':'Jour de la semaine'},
+        'Time of Day':{'fr':'Moment de la journée'},
+        'Languages':{'fr':'Langues'},
+        'Payment':{'fr':'Paiement'},
+        'About Me':{'fr':'À propos de moi'},
+        'Type':{'fr':'Type'},
+        # '':{'fr':''},
+        }
+    if language != 'en':
+        return translate_dict[word][language]
+    else:
+        return word
+
+def build_folium_map(language):
 
     df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
     # df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
@@ -75,34 +103,34 @@ def build_folium_map():
 
         if category == 'Volunteers':
             email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
-            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
-                f'<b>Volunteer</b>' + \
-                f"<b>Name:</b> {row['Given Name']} <br>" +  \
-                f"<b>Country:</b> {row['Country']} <br>" +\
-                f"<b>City:</b> {row['City/Town']} <br>" +\
-                f"<b>Services:</b> {row['Type of Services']} <br>" +\
-                f"<b>Transportation:</b> {row['Mode of Transportation']} <br>" +\
-                f"<b>Radius:</b> {int(row['Radius'])} km <br>" +\
-                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +\
-                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +\
-                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +\
-                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
-                f"<b>About Me:</b> {row['About Me']} <br>" +\
+            html = "<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>"+\
+                f"<b>{translator('Volunteers', language)}</b> <br>" + \
+                f"<b>{translator('Name', language)}:</b> {row['Given Name']} <br>" +  \
+                f"<b>{translator('Country', language)}:</b> {row['Country']} <br>" +\
+                f"<b>{translator('City', language)}:</b> {row['City/Town']} <br>" +\
+                f"<b>{translator('Services', language)}:</b> {row['Type of Services']} <br>" +\
+                f"<b>{translator('Transportation', language)}:</b> {row['Mode of Transportation']} <br>" +\
+                f"<b>{translator('Radius', language)}:</b> {int(row['Radius'])} km <br>" +\
+                f"<b>{translator('Day of Week', language)}:</b> {row['Preferred Day of Week']} <br>" +\
+                f"<b>{translator('Time of Day', language)}:</b> {row['Preferred Time of Day']} <br>" +\
+                f"<b>{translator('Languages', language)}:</b> {row['Languages Spoken']} <br>" +\
+                f"<b>{translator('Payment', language)}:</b> {row['Reimbursement Method']} <br>" +\
+                f"<b>{translator('About Me', language)}:</b> {row['About Me']} <br>" +\
                 f"<a href='mailto:{row['Email Address']}?cc={va_email}&Subject={email_subject}' target='_blank'>Contact {row['Given Name']}</a>  <br></body>"
         elif category == 'Requests':
-            html = '<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>'+\
-                f'<b>Delivery Request</b>' + \
-                f"<b>Country:</b> {row['Country']} <br>" +\
-                f"<b>City:</b> {row['City/Town']} <br>" +\
-                f"<b>Services:</b> {row['Type of Services']} <br>" +\
-                f"<b>Type:</b> {row['Type of Request']} <br>" +\
-                f"<b>Day of Week:</b> {row['Preferred Day of Week']} <br>" +\
-                f"<b>Time of Day:</b> {row['Preferred Time of Day']} <br>" +\
-                f"<b>Languages:</b> {row['Languages Spoken']} <br>" +\
-                f"<b>Payment:</b> {row['Reimbursement Method']} <br>" +\
+            html = "<head><style>body{font-size:14px;font-family:sans-serif}</style></head><body>"+\
+                f"<b>{translator('Requests', language)}</b> <br>" + \
+                f"<b>{translator('Country', language)}:</b> {row['Country']} <br>" +\
+                f"<b>{translator('City', language)}:</b> {row['City/Town']} <br>" +\
+                f"<b>{translator('Services', language)}:</b> {row['Type of Services']} <br>" +\
+                f"<b>{translator('Type', language)}:</b> {row['Type of Request']} <br>" +\
+                f"<b>{translator('Day of Week', language)}:</b> {row['Preferred Day of Week']} <br>" +\
+                f"<b>{translator('Time of Day', language)}:</b> {row['Preferred Time of Day']} <br>" +\
+                f"<b>{translator('Languages', language)}:</b> {row['Languages Spoken']} <br>" +\
+                f"<b>{translator('Payment', language)}:</b> {row['Reimbursement Method']} <br>" +\
                 f"<a href='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true' target='_blank'>Sign Up to Help</a>  <br></body>"
  
-        iframe = folium.IFrame(html = folium.Html(html, script=True), width=250, height=len(html)/2.2-15)
+        iframe = folium.IFrame(html = folium.Html(html, script=True), width=260, height=len(html)/2.25)
         popup = folium.Popup(iframe)
     
         return popup
@@ -119,7 +147,7 @@ def build_folium_map():
 
         #add marker cluster
         mc = MarkerCluster(
-            name=category, 
+            name=translator(category, language),
             control=True,
             overlay=True,
             showCoverageOnHover=False
@@ -132,7 +160,7 @@ def build_folium_map():
             if category == 'Volunteers' and row['City/Town'] not in dense_cities:
                 radius = row['Radius']*1000
             else:
-                radius = 500
+                radius = 250
 
             mc.add_child(
                 folium.Circle(
@@ -173,50 +201,90 @@ def build_folium_map():
     
     return m._repr_html_()
 
-app.layout = html.Div(children=[
-    html.Center(html.Img(src=app.get_asset_url('banner.png'), height=40)),
-    dcc.Tabs(id="tabs", value='tab-map', children=[
-        dcc.Tab(label='Interactive Map', value='tab-map', className='custom-tab', selected_className='custom-tab--selected-map'),
-        dcc.Tab(label='Volunteer Signup Form', value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected-volform'),
-        dcc.Tab(label='Delivery Request Form', value='tab-delivery', className='custom-tab', selected_className='custom-tab--selected-delform'),
-        dcc.Tab(label='About Us', value='tab-about', className='custom-tab', selected_className='custom-tab--selected-about'),
-        ]
-        , style={'height':'20%','width':'100%'} 
-    ),
-    html.Div(id='tabs-content', style={'height':'70%','width':'100%'} ),
-    html.Div(id='footer', children=[], style={'height':'10%','width':'100%'})
+app.layout = html.Div(
+    children=[
+        dcc.Location(id='url'),
+        dbc.NavbarSimple(
+            children=[
+                html.Img(src=app.get_asset_url('va-logo.png'), height=35, width=35),
+                dbc.DropdownMenu(
+                    children=[
+                        
+                        dbc.DropdownMenuItem('EN', href='/en', id='en-link', active=True),
+                        dbc.DropdownMenuItem('FR', href='/fr', id='fr-link', active=True),
+                    ],
+                    nav=True,
+                    in_navbar=True,
+                    id='language-dropdown'
+                ),
+            ],
+            color='light',
+            light=True,
+            brand='VolunteerAtlas'
+        ), 
+        dcc.Tabs(id='tabs', value='tab-map', style={'height':'20%','width':'100%'} 
+        ),
+        html.Div(id='tabs-content', style={'height':'50%','width':'100%'} ),
+        html.Div(id='footer', children=[], style={'height':'10%','width':'100%'})
 ])
 
-about_text = dcc.Markdown('''
+@app.callback(
+    Output('tabs', 'children'),
+    [Input('url', 'pathname')]
+)
+def render_tabs(url):
 
-    ##### About Us
-    COVID-19 is a global problem requiring large-scale local responses. VolunteerAtlas is trying to create a global online repository of volunteers to help deal with this growing crisis. Self isolation for the most at-risk individuals in our community will require essentials like food and medicine be delivered to their doorsteps. If you're a young, healthy person with no dependents, and have been practicing social distancing, maybe you’d like to help.
+    language = get_url_language(url)
 
-    ##### Privacy
-    We take your privacy seriously. Only your **Given Name, Email Address** and **About Me** sections will be shared on the website. All additional personal information will only be accessible by admins and will be used solely to confirm identities and protect those we are seeking to help.
-    Our system is also designed to protect your physical location. We only ask for a postal code (not your home address) to get your approximate location. We then add an additional 500m of random noise to further protect your privacy.
+    return [
+        dcc.Tab(label=translator('Interactive Map', language), value='tab-map', className='custom-tab', selected_className='custom-tab--selected-map'),
+        dcc.Tab(label=translator('Volunteer Signup Form', language), value='tab-volunteer', className='custom-tab', selected_className='custom-tab--selected-volform'),
+        dcc.Tab(label=translator('Delivery Request Form', language), value='tab-request', className='custom-tab', selected_className='custom-tab--selected-delform'),
+        dcc.Tab(label=translator('About Us', language), value='tab-about', className='custom-tab', selected_className='custom-tab--selected-about'),
+    ]
 
-    ##### FAQs
-    **Why might posting my information on this website be more helpful than just posting on Facebook/Twitter?**
+@app.callback(
+    Output('language-dropdown', 'label'),
+    [Input('url', 'pathname')],
+)
+def update_label(url):
+    return get_url_language(url).upper()
 
-    Vulnerable people needing help the most are likely those who do not live in the same city as their close relatives/friends. Close relatives who live outside of the locality are less likely to see or be aware of Facebook groups or Twitter posts from localized help groups. Also, social media is ephemeral, if you are offering to help over a course of weeks or months, putting your information into a central repository is a more effective way to do it.
+# this callback uses the current pathname to set the active state of the
+# corresponding nav link to true, allowing users to tell see page they are on
+languages = ['en','fr']
+@app.callback(
+    [Output(f'{i}-link', 'active') for i in languages],
+    [Input('url', 'pathname')],
+)
+def toggle_active_links(pathname):
+    if pathname == '/':
+        # Treat first item in list as the homepage / index
+        return True, False
+    return [pathname == f'/{i}' for i in languages]
 
-    **What is the process for connecting volunteers with recipients?**
+def get_url_language(url):
+    '''get the language from the url with 
+    '''
+    language = url.replace('/','')
+    if language == '':
+        language = 'en'
 
-    Your approximate location will populate an interactive map and certain details from your responses will be available on your 'public profile'. Recipients will navigate through the map to select the most suitable volunteer based on their profile. A small group of admin will be involved in facilitating your volunteer effort behind the scenes.
+    return language
 
-    **Buying groceries for more than just yourself might look to others like panic buying. What can I do if I'm confronted/prevented from shopping based on such suspicions?**
+@app.callback(
+    Output('tabs-content', 'children'),
+    [Input('tabs', 'value'),
+    Input('url', 'pathname')]
+)
+def render_content(tab, url, iframe_height=800):
 
-    We are thinking about ways to implement a verification and authentication program. For the time being, we recommend you speak with store staff/management about your volunteerism and show them your registration on this website.
-''')
+    language = get_url_language(url)
 
-@app.callback(Output('tabs-content', 'children'),
-              [Input('tabs', 'value')])
-def render_content(tab, iframe_height=800):
     if tab == 'tab-map':
         return html.Iframe(
             id='folium-map', 
-            srcDoc=build_folium_map(), 
+            srcDoc=build_folium_map(language),
             height=iframe_height,
             width='100%',
             style={'overflow':'hidden','overflow-x':'hidden','overflow-y':'hidden'} #ISSUE: Fix IFrame y-scroll bar
@@ -224,22 +292,23 @@ def render_content(tab, iframe_height=800):
     elif tab == 'tab-volunteer':
         return html.Iframe(
             id='volunteer-form', 
-            src='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true', 
-            style=dict(width='100%', height=iframe_height,)
+            src='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true',
+            style={'width':'100%', 'height':iframe_height, 'margin-left':'auto', 'margin-right':'auto'}
             )
-    elif tab == 'tab-delivery':
+    elif tab == 'tab-request':
         return html.Iframe(
             id='request-form', 
-            src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true', 
-            style=dict(width='100%', height=iframe_height,)
+            src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true',
+            style={'width':'100%', 'height':iframe_height, 'margin-left':'auto', 'margin-right':'auto'}
             ) 
     elif tab == 'tab-about':
         return html.Div(
             children=[
-                about_text,
+                get_about_text(language),
                 html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas', target='_blank')
-            ]
+            ],
+            style={'width':'90%', 'margin-left':'auto', 'margin-right':'auto'}
         )
-
+        
 if __name__ == '__main__':
-    app.run_server(debug=False, port= 5000)
+    app.run_server(debug=True, port=5000)

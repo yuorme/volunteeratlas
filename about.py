@@ -19,7 +19,7 @@ def get_about_text(language):
     We are also looking to connect with other mutual aid groups, food banks, meals on wheels programs, etc to create a more centralized system that will facilitate deliveries through all these networks. If your organization is looking for volunteers or needs help organizing deliveries, please don’t hesitate to get in touch and we will be happy to collaborate!
 
     ##### Privacy
-    We take your privacy seriously. Only your **Given Name**, **Email Address** and **About Me** sections will be shared on the publicly if you sign up as a volunteer. No personal information will be displayed for those requesting deliveries to protect the identities of the vulnerable. All additional personal information will only be accessible by admins and will be used solely to confirm identities and protect those we are seeking to help. 
+    We take your privacy seriously. As a volunteer, only your **Given Name**, **Email Address** and **About Me** sections will be displayed on the map. No personal information will be displayed for those requesting deliveries to protect the identities of the vulnerable. All additional personal information will only be accessible by admins and will be used solely to confirm identities and protect those we are seeking to help. 
     
     Our system is also designed to protect your physical location. We only ask for a postal code (not your home address) to get your approximate location. We then add an additional 500m of random noise to further protect your privacy.
 
@@ -38,7 +38,7 @@ def get_about_text(language):
     '''
 
     fr_text = '''
-    ##### Notre Objectif
+    ##### Notre mission
     Bienvenue à VolunteerAtlas, un projet géographique qui met en relation des bénévoles en bonne santé avec des personnes ayant besoin d'aide avec leurs courses pendant COVID-19 (et au-delà) ! Vous vous sentez impuissant face à cette urgence internationale, vous avez plus de temps libre ces temps-ci et vous voulez aider des personnes dans le besoin à procurer des provisions en toute sécurité ? Inscrivez-vous en tant que bénévole et entrez en contact avec d'autres membres de votre communauté qui pourraient grandement bénéficier de votre soutien. Nous avons simplement besoin de recueillir quelques informations vous concernant, puis c'est parti.
 
     Si vous ou quelqu'un que vous connaissez est en état d'auto-isolement, immunodéficient, vulnérable ou âgé et a besoin d'aide pour faire des courses ou d'autres fournitures, consultez les bénévoles disponibles dans votre quartier et prenez directement contact avec quelqu'un. L'identité de tous les bénévoles a été vérifiée et vous pouvez en apprendre davantage sur chacun d'entre eux afin de choisir une personne avec laquelle vous vous sentez à l'aise. 

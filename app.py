@@ -109,10 +109,11 @@ def translator(word, language):
     else:
         return word
 
-def build_folium_map(language, filters):
 
-    # df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-    df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+#df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
+df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+
+def build_folium_map(language, filters):
 
     def get_popup_html(row, category):
         '''Builds a folium HTML popup to display in folium marker objects
@@ -437,7 +438,11 @@ def render_content(tab, url, iframe_height=800):
               State('filters-finance', 'value')],
               )
 def update_filtered_map(n_clicks, url, filters_day, filters_time, filters_servicetype, filters_finance):
-    filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
+    ctx = dash.callback_context
+    if ctx.triggered[0]['prop_id'] == 'url.pathname':
+        filter_list = []
+    else:
+        filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
     language = get_url_language(url)
     return build_folium_map(language, filter_list)
 

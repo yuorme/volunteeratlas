@@ -84,6 +84,23 @@ def translator(word, language):
         'Payment':{'fr':'Paiement'},
         'About Me':{'fr':'À propos de moi'},
         'Type':{'fr':'Type'},
+        'Monday':{'fr':'Lundi'},
+        'Tuesday':{'fr':'Mardi'},
+        'Wednesday':{'fr':'Mercredi'},
+        'Thursday':{'fr':'Jeudi'},
+        'Friday':{'fr':'Vendredi'},
+        'Saturday':{'fr':'Samedi'},
+        'Sunday':{'fr':'Dimanche'},
+        'Morning':{'fr':'Matin'},
+        'Afternoon':{'fr':'Après-midi'},
+        'Evening':{'fr':'Soirée'},
+        'Groceries':{'fr':'Épicerie'},
+        'Pharmacy':{'fr':'Pharmacie'},
+        'Household Supplies':{'fr':'Fournitures Ménagères'},
+        'Other Errands':{'fr':'Autres'},
+        'Cash':{'fr':'Comptant'},
+        'Cheque':{'fr':'Chèque'},
+        'Electronic Money Transfer':{'fr':'Virement Électronique'},
         # '':{'fr':''},
         }
     if language != 'en':
@@ -320,13 +337,13 @@ def render_content(tab, url, iframe_height=800):
                 dcc.Dropdown(
                 id='filters-day',
                 options=[
-                    {'label': 'Monday', 'value': 'Mon'},
-                    {'label': 'Tuesday', 'value': 'Tue'},
-                    {'label': 'Wednesday', 'value': 'Wed'},
-                    {'label': 'Thursday', 'value': 'Thu'},
-                    {'label': 'Friday', 'value': 'Fri'},
-                    {'label': 'Saturday', 'value': 'Sat'},
-                    {'label': 'Sunday', 'value': 'Sun'},
+                    {'label': translator('Monday', language), 'value': 'Mon'},
+                    {'label': translator('Tuesday', language), 'value': 'Tue'},
+                    {'label': translator('Wednesday', language), 'value': 'Wed'},
+                    {'label': translator('Thursday', language), 'value': 'Thu'},
+                    {'label': translator('Friday', language), 'value': 'Fri'},
+                    {'label': translator('Saturday', language), 'value': 'Sat'},
+                    {'label': translator('Sunday', language), 'value': 'Sun'},
                     ],
                 multi=True,
                 placeholder='Select days of availability',
@@ -340,9 +357,9 @@ def render_content(tab, url, iframe_height=800):
                 dcc.Dropdown(
                 id='filters-time',
                  options=[
-                    {'label': 'Morning', 'value': 'Morning'},
-                    {'label': 'Afternoon', 'value': 'Afternoon'},
-                    {'label': 'Evening', 'value': 'Evening'},
+                    {'label': translator('Morning', language), 'value': 'Morning'},
+                    {'label': translator('Afternoon', language), 'value': 'Afternoon'},
+                    {'label': translator('Evening', language), 'value': 'Evening'},
                     ],
                 multi=True,
                 placeholder='Select times of availability',
@@ -356,10 +373,10 @@ def render_content(tab, url, iframe_height=800):
                 dcc.Dropdown(
                 id='filters-servicetype',
                 options=[
-                    {'label': 'Groceries', 'value': 'Groceries'},
-                    {'label': 'Pharmacy', 'value': 'Pharmacy'},
-                    {'label': 'Household Supplies', 'value': 'Household Supplies'},
-                    {'label': 'Other Errands', 'value': 'Other Errands'}
+                    {'label': translator('Groceries', language), 'value': 'Groceries'},
+                    {'label': translator('Pharmacy', language), 'value': 'Pharmacy'},
+                    {'label': translator('Household Supplies', language), 'value': 'Household Supplies'},
+                    {'label': translator('Other Errands', language), 'value': 'Other Errands'}
                     ],
                 multi=True,
                 placeholder='Select type of service',
@@ -373,9 +390,9 @@ def render_content(tab, url, iframe_height=800):
                 dcc.Dropdown(
                 id='filters-finance',
                 options=[
-                    {'label': 'Cash', 'value': 'Cash'},
-                    {'label': 'Cheque', 'value': 'Cheque'},
-                    {'label': 'Electronic Money Transfer', 'value': 'Electronic Money Transfer'},
+                    {'label': translator('Cash', language), 'value': 'Cash'},
+                    {'label': translator('Cheque', language), 'value': 'Cheque'},
+                    {'label': translator('Electronic Money Transfer', language), 'value': 'Electronic Money Transfer'},
                     ],
                 multi=True,
                 placeholder='Select reimbursment type',

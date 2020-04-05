@@ -21,6 +21,7 @@ from dash.dependencies import Input, Output, State
 
 from about import get_about_text
 
+# initialize app
 app = dash.Dash(
     __name__, 
     external_stylesheets=[dbc.themes.BOOTSTRAP],
@@ -90,7 +91,7 @@ def translator(word, language):
     else:
         return word
 
-def build_folium_map(language, filters=[]):
+def build_folium_map(language, filters):
 
     # df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
     df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
@@ -99,7 +100,6 @@ def build_folium_map(language, filters=[]):
         '''Builds a folium HTML popup to display in folium marker objects
         row (pandas Series): row from the google sheets dataframe
         '''
-        email_subject = f"Delivery%20Request%20for%20{row['Given Name']}"
         va_email = 'volunteers.atlas@gmail.com'
 
         if category == 'Volunteers':
@@ -186,16 +186,19 @@ def build_folium_map(language, filters=[]):
     
     # filter data based on chosen filters
     def filter_map(df, filters):
-        filter_columns = ['Preferred Day of Week',\
-                           'Preferred Time of Day', 'Type of Services', \
-                           'Reimbursement Method']
-        split_df = pd.DataFrame()
-        for ind in np.arange(len(filter_columns)):
-            split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
-                                 expand=True)], axis=1)
-            filtered_df = split_df.isin(filters[ind]).any(1)
-            df = df[filtered_df]
-        return df
+        if filters == []:
+            return df
+        else:
+            filter_columns = ['Preferred Day of Week',\
+                               'Preferred Time of Day', 'Type of Services', \
+                               'Reimbursement Method']
+            split_df = pd.DataFrame()
+            for ind in np.arange(len(filter_columns)):
+                split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
+                                     expand=True)], axis=1)
+                filtered_df = split_df.isin(filters[ind]).any(1)
+                df = df[filtered_df]
+            return df
 
 
     #build map
@@ -408,15 +411,17 @@ def render_content(tab, url, iframe_height=800):
         )
 
 @app.callback(Output('folium-map', 'srcDoc'),
-             [Input('filter-button', 'n_clicks')],
+             [Input('filter-button', 'n_clicks'),
+              Input('url', 'pathname')],
              [State('filters-day', 'value'),
               State('filters-time', 'value'),
               State('filters-servicetype', 'value'),
               State('filters-finance', 'value')],
               )
-def update_filtered_map(n_clicks, filters_day, filters_time, filters_servicetype, filters_finance):
+def update_filtered_map(n_clicks, url, filters_day, filters_time, filters_servicetype, filters_finance):
     filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
-    return build_folium_map(filter_list)
+    language = get_url_language(url)
+    return build_folium_map(language, filter_list)
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=5000)

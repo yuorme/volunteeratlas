@@ -101,6 +101,7 @@ def translator(word, language):
         'Cash':{'fr':'Comptant'},
         'Cheque':{'fr':'Chèque'},
         'Electronic Money Transfer':{'fr':'Virement Électronique'},
+        '### Filter by day, time, service type, and payment type':{'fr':'### Filtrez par jour, temps, type de service, et type de paiement'}
         # '':{'fr':''},
         }
     if language != 'en':
@@ -328,7 +329,7 @@ def render_content(tab, url, iframe_height=800):
 
     if tab == 'tab-map':
         return html.Div([
-            dcc.Markdown('### Filter by day, time, service type and payment type '),
+            dcc.Markdown(translator('### Filter by day, time, service type, and payment type', language)),
             html.Div(style={'width': '59%',
                             'display': 'inline-block',
                             'float': 'left'

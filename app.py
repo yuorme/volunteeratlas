@@ -439,8 +439,10 @@ def render_content(tab, url, iframe_height=800):
               )
 def update_filtered_map(n_clicks, url, filters_day, filters_time, filters_servicetype, filters_finance):
     ctx = dash.callback_context
-    if ctx.triggered[0]['prop_id'] == 'url.pathname':
-        filter_list = []
+    if not ctx.triggered:
+        filter_list = [] # Resets filters if coming in from another tab
+    elif ctx.triggered[0]['prop_id'] == 'url.pathname':
+        filter_list = [] # Resets filters when changing language
     else:
         filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
     language = get_url_language(url)

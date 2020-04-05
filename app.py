@@ -39,6 +39,9 @@ if os.environ.get('GDRIVE_API_CREDENTIALS') is not None and '`' not in os.enviro
 else:
     gc = pygsheets.authorize(service_file='volunteeratlas-service.json') # local: hack due to windows env double quotes issue
 
+#df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
+df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+
 def get_sheets_df(gc, sheet_id):
     '''get and process google sheets into a dataframe
     '''
@@ -109,9 +112,6 @@ def translator(word, language):
     else:
         return word
 
-
-#df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
 
 def build_folium_map(language, filters):
 

@@ -114,7 +114,7 @@ def translator(word, language):
 
 
 #df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
-df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE')  # Uncomment this sheet for testing (links to public sheet) and comment out line above
 
 
 def build_folium_map(language, filters):
@@ -154,7 +154,7 @@ def build_folium_map(language, filters):
                 f"<b>{translator('Payment', language)}:</b> {row['Reimbursement Method']} <br>" +\
                 f"<a href='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true' target='_blank'>Sign Up to Help</a>  <br></body>"
 
-        iframe = folium.IFrame(html = folium.Html(html, script=True), width=260, height=len(html)/2.25)
+        iframe = folium.IFrame(html=folium.Html(html, script=True), width=260, height=len(html)/2.25)
         popup = folium.Popup(iframe)
 
         return popup
@@ -205,12 +205,12 @@ def build_folium_map(language, filters):
         if filters == []:
             return df
         else:
-            filter_columns = ['Preferred Day of Week',\
-                               'Preferred Time of Day', 'Type of Services', \
+            filter_columns = ['Preferred Day of Week',
+                               'Preferred Time of Day', 'Type of Services',
                                'Reimbursement Method']
             split_df = pd.DataFrame()
             for ind in np.arange(len(filter_columns)):
-                split_df = pd.concat([df[filter_columns[ind]].str.split(', ',\
+                split_df = pd.concat([df[filter_columns[ind]].str.split(', ',
                                      expand=True)], axis=1)
                 filtered_df = split_df.isin(filters[ind]).any(1)
                 df = df[filtered_df]
@@ -449,6 +449,7 @@ def update_filtered_map(n_clicks, url, filters_day, filters_time, filters_servic
         filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
     language = get_url_language(url)
     return build_folium_map(language, filter_list)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=5000)

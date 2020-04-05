@@ -66,42 +66,42 @@ def get_sheets_df(gc, sheet_id):
 
 def translator(word, language):
     translate_dict = {
-        'Volunteers':{'fr':'Bénévole'},
-        'Requests':{'fr':'Demandes'},
-        'Interactive Map':{'fr':'Carte interactive'},
-        'Volunteer Signup Form':{'fr':'Inscription des bénévoles'},
-        'Delivery Request Form':{'fr':'Demande de livraison'},
-        'About Us':{'fr':'À propos de nous'},
-        'Name':{'fr':'Nom'},
-        'Country':{'fr':'Pays'},
-        'City':{'fr':'Ville'},
-        'Services':{'fr':'Services'},
-        'Transportation':{'fr':'Transport'},
-        'Radius':{'fr':'Radius'},
-        'Day of Week':{'fr':'Jour de la semaine'},
-        'Time of Day':{'fr':'Moment de la journée'},
-        'Languages':{'fr':'Langues'},
-        'Payment':{'fr':'Paiement'},
-        'About Me':{'fr':'À propos de moi'},
-        'Type':{'fr':'Type'},
-        'Monday':{'fr':'Lundi'},
-        'Tuesday':{'fr':'Mardi'},
-        'Wednesday':{'fr':'Mercredi'},
-        'Thursday':{'fr':'Jeudi'},
-        'Friday':{'fr':'Vendredi'},
-        'Saturday':{'fr':'Samedi'},
-        'Sunday':{'fr':'Dimanche'},
-        'Morning':{'fr':'Matin'},
-        'Afternoon':{'fr':'Après-midi'},
-        'Evening':{'fr':'Soirée'},
-        'Groceries':{'fr':'Épicerie'},
-        'Pharmacy':{'fr':'Pharmacie'},
-        'Household Supplies':{'fr':'Fournitures Ménagères'},
-        'Other Errands':{'fr':'Autres'},
-        'Cash':{'fr':'Comptant'},
-        'Cheque':{'fr':'Chèque'},
-        'Electronic Money Transfer':{'fr':'Virement Électronique'},
-        '### Filter by day, time, service type, and payment type':{'fr':'### Filtrez par jour, temps, type de service, et type de paiement'}
+        'Volunteers': {'fr': 'Bénévole'},
+        'Requests': {'fr': 'Demandes'},
+        'Interactive Map': {'fr': 'Carte interactive'},
+        'Volunteer Signup Form': {'fr': 'Inscription des bénévoles'},
+        'Delivery Request Form': {'fr': 'Demande de livraison'},
+        'About Us': {'fr': 'À propos de nous'},
+        'Name': {'fr': 'Nom'},
+        'Country': {'fr': 'Pays'},
+        'City': {'fr': 'Ville'},
+        'Services': {'fr': 'Services'},
+        'Transportation': {'fr': 'Transport'},
+        'Radius': {'fr': 'Radius'},
+        'Day of Week': {'fr': 'Jour de la semaine'},
+        'Time of Day': {'fr': 'Moment de la journée'},
+        'Languages': {'fr': 'Langues'},
+        'Payment': {'fr': 'Paiement'},
+        'About Me': {'fr': 'À propos de moi'},
+        'Type': {'fr': 'Type'},
+        'Monday': {'fr': 'Lundi'},
+        'Tuesday': {'fr': 'Mardi'},
+        'Wednesday': {'fr': 'Mercredi'},
+        'Thursday': {'fr': 'Jeudi'},
+        'Friday': {'fr': 'Vendredi'},
+        'Saturday': {'fr': 'Samedi'},
+        'Sunday': {'fr': 'Dimanche'},
+        'Morning': {'fr': 'Matin'},
+        'Afternoon': {'fr': 'Après-midi'},
+        'Evening': {'fr': 'Soirée'},
+        'Groceries': {'fr': 'Épicerie'},
+        'Pharmacy': {'fr': 'Pharmacie'},
+        'Household Supplies': {'fr': 'Fournitures Ménagères'},
+        'Other Errands': {'fr': 'Autres'},
+        'Cash': {'fr': 'Comptant'},
+        'Cheque': {'fr': 'Chèque'},
+        'Electronic Money Transfer': {'fr': 'Virement Électronique'},
+        '### Filter by day, time, service type, and payment type': {'fr': '### Filtrez par jour, temps, type de service, et type de paiement'}
         # '':{'fr':''},
         }
     if language != 'en':
@@ -269,10 +269,10 @@ app.layout = html.Div(
             light=True,
             brand='VolunteerAtlas'
         ), 
-        dcc.Tabs(id='tabs', value='tab-map', style={'height':'20%','width':'100%'} 
+        dcc.Tabs(id='tabs', value='tab-map', style={'height': '20%','width': '100%'} 
         ),
-        html.Div(id='tabs-content', style={'height':'50%','width':'100%'} ),
-        html.Div(id='footer', children=[], style={'height':'10%','width':'100%'})
+        html.Div(id='tabs-content', style={'height': '50%','width': '100%'} ),
+        html.Div(id='footer', children=[], style={'height': '10%','width': '100%'})
 ])
 
 @app.callback(
@@ -418,7 +418,7 @@ def render_content(tab, url, iframe_height=800):
         return html.Iframe(
             id='request-form', 
             src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true',
-            style={'width':'100%', 'height':iframe_height, 'margin-left':'auto', 'margin-right':'auto'}
+            style={'width': '100%', 'height': iframe_height, 'margin-left': 'auto', 'margin-right': 'auto'}
             ) 
     elif tab == 'tab-about':
         return html.Div(
@@ -426,7 +426,7 @@ def render_content(tab, url, iframe_height=800):
                 get_about_text(language),
                 html.A('Code on Github', href='https://github.com/yuorme/volunteeratlas', target='_blank')
             ],
-            style={'width':'90%', 'margin-left':'auto', 'margin-right':'auto'}
+            style={'width': '90%', 'margin-left': 'auto', 'margin-right': 'auto'}
         )
 
 @app.callback(Output('folium-map', 'srcDoc'),

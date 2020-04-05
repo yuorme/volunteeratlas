@@ -23,7 +23,7 @@ from about import get_about_text
 
 # initialize app
 app = dash.Dash(
-    __name__, 
+    __name__,
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
@@ -38,6 +38,7 @@ if os.environ.get('GDRIVE_API_CREDENTIALS') is not None and '`' not in os.enviro
     gc = pygsheets.authorize(service_account_env_var='GDRIVE_API_CREDENTIALS') # web
 else:
     gc = pygsheets.authorize(service_file='volunteeratlas-service.json') # local: hack due to windows env double quotes issue
+
 
 def get_sheets_df(gc, sheet_id):
     '''get and process google sheets into a dataframe
@@ -63,6 +64,7 @@ def get_sheets_df(gc, sheet_id):
         return df
 
     return process_df(df1), process_df(df2)
+
 
 def translator(word, language):
     translate_dict = {
@@ -100,6 +102,7 @@ def translator(word, language):
         'Other Errands': {'fr': 'Autres'},
         'Cash': {'fr': 'Comptant'},
         'Cheque': {'fr': 'Chèque'},
+        'Loading...': {'fr': 'Chargement...'},
         'Electronic Money Transfer': {'fr': 'Virement Électronique'},
         '### Filter by day, time, service type, and payment type': {'fr': '### Filtrez par jour, temps, type de service, et type de paiement'}
         # '':{'fr':''},
@@ -112,6 +115,7 @@ def translator(word, language):
 
 #df_vol, df_req = get_sheets_df(gc, '16EcK3wX-bHfLpL3cj36j49PRYKl_pOp60IniREAbEB4') #TODO: hide sheetname
 df_vol, df_req = get_sheets_df(gc, '1CmhMm_RnnIfP71bliknEYy8HWDph2kUlXoIhAbYeJQE') #Uncomment this sheet for testing (links to public sheet) and comment out line above
+
 
 def build_folium_map(language, filters):
 
@@ -149,20 +153,13 @@ def build_folium_map(language, filters):
                 f"<b>{translator('Languages', language)}:</b> {row['Languages Spoken']} <br>" +\
                 f"<b>{translator('Payment', language)}:</b> {row['Reimbursement Method']} <br>" +\
                 f"<a href='https://docs.google.com/forms/d/e/1FAIpQLSfw3LFsXtCCmr-ewkUuIltKIP5PKNY8Xn8h3MjVrFrvfvktPw/viewform?embedded=true' target='_blank'>Sign Up to Help</a>  <br></body>"
- 
+
         iframe = folium.IFrame(html = folium.Html(html, script=True), width=260, height=len(html)/2.25)
         popup = folium.Popup(iframe)
 
         return popup
 
-    # build map
-    m = folium.Map(
-        location=[42, -97.5], # Canada
-        tiles='Stamen Terrain',
-        zoom_start=4,
-        control_scale=True
-    )
-
+    
     def build_marker_cluster(m, df, category):
 
         dff = df.dropna(axis=0, how='any', subset=['Latitude', 'Longtitude']).copy()
@@ -185,7 +182,7 @@ def build_folium_map(language, filters):
         # add circle markers
         for idx, row in dff.iterrows():
 
-            dense_cities = ['Montreal','Toronto','Ottawa','Montréal','Cote St Luc','Gatineau'] #HACK: make people outside major clusters reflect their true radius
+            dense_cities = ['Montreal', 'Toronto', 'Ottawa', 'Montréal', 'Cote St Luc', 'Gatineau']  # HACK: make people outside major clusters reflect their true radius
             if category == 'Volunteers' and row['City/Town'] not in dense_cities:
                 radius = row['Radius']*1000
             else:
@@ -202,7 +199,7 @@ def build_folium_map(language, filters):
                     fill_color=marker_color
                 )
             ).add_to(m)
-    
+
     # filter data based on chosen filters
     def filter_map(df, filters):
         if filters == []:
@@ -220,9 +217,9 @@ def build_folium_map(language, filters):
             return df
 
 
-    #build map
+    # build map
     m = folium.Map(
-        location=[42, -97.5], #Canada
+        location=[42, -97.5],  # Canada
         tiles='Stamen Terrain',
         min_zoom=3,
         zoom_start=4,
@@ -256,7 +253,7 @@ app.layout = html.Div(
                 html.Img(src=app.get_asset_url('va-logo.png'), height=35, width=35),
                 dbc.DropdownMenu(
                     children=[
-                        
+
                         dbc.DropdownMenuItem('EN', href='/en', id='en-link', active=True),
                         dbc.DropdownMenuItem('FR', href='/fr', id='fr-link', active=True),
                     ],
@@ -268,12 +265,13 @@ app.layout = html.Div(
             color='light',
             light=True,
             brand='VolunteerAtlas'
-        ), 
-        dcc.Tabs(id='tabs', value='tab-map', style={'height': '20%','width': '100%'} 
         ),
-        html.Div(id='tabs-content', style={'height': '50%','width': '100%'} ),
-        html.Div(id='footer', children=[], style={'height': '10%','width': '100%'})
+        dcc.Tabs(id='tabs', value='tab-map', style={'height': '20%', 'width': '100%'}
+        ),
+        html.Div(id='tabs-content', style={'height': '50%', 'width': '100%'}),
+        html.Div(id='footer', children=[], style={'height': '10%', 'width': '100%'})
 ])
+
 
 @app.callback(
     Output('tabs', 'children'),
@@ -290,6 +288,7 @@ def render_tabs(url):
         dcc.Tab(label=translator('About Us', language), value='tab-about', className='custom-tab', selected_className='custom-tab--selected-about'),
     ]
 
+
 @app.callback(
     Output('language-dropdown', 'label'),
     [Input('url', 'pathname')],
@@ -299,7 +298,7 @@ def update_label(url):
 
 # this callback uses the current pathname to set the active state of the
 # corresponding nav link to true, allowing users to tell see page they are on
-languages = ['en','fr']
+languages = ['en', 'fr']
 @app.callback(
     [Output(f'{i}-link', 'active') for i in languages],
     [Input('url', 'pathname')],
@@ -310,14 +309,16 @@ def toggle_active_links(pathname):
         return True, False
     return [pathname == f'/{i}' for i in languages]
 
+
 def get_url_language(url):
-    '''get the language from the url with 
+    '''get the language from the url with
     '''
-    language = url.replace('/','')
+    language = url.replace('/', '')
     if language == '':
         language = 'en'
 
     return language
+
 
 @app.callback(
     Output('tabs-content', 'children'),
@@ -406,7 +407,7 @@ def render_content(tab, url, iframe_height=800):
                             },
                         children=[
                 html.Button('Apply Filters', id='filter-button')]),
-            html.Iframe(id='folium-map', srcDoc='Loading...', style=dict(width='100%', height=iframe_height, overflow='hidden'))
+            html.Iframe(id='folium-map', srcDoc=translator('Loading...', language), style=dict(width='100%', height=iframe_height, overflow='hidden'))
             ])
     elif tab == 'tab-volunteer':
         return html.Iframe(
@@ -416,10 +417,10 @@ def render_content(tab, url, iframe_height=800):
             )
     elif tab == 'tab-request':
         return html.Iframe(
-            id='request-form', 
+            id='request-form',
             src='https://docs.google.com/forms/d/e/1FAIpQLSfFkdsyhiPTQDA5LtnJFzHUFzTL-aQaO-9koXIkOir2K2Lw7g/viewform?embedded=true',
             style={'width': '100%', 'height': iframe_height, 'margin-left': 'auto', 'margin-right': 'auto'}
-            ) 
+            )
     elif tab == 'tab-about':
         return html.Div(
             children=[
@@ -428,6 +429,7 @@ def render_content(tab, url, iframe_height=800):
             ],
             style={'width': '90%', 'margin-left': 'auto', 'margin-right': 'auto'}
         )
+
 
 @app.callback(Output('folium-map', 'srcDoc'),
              [Input('filter-button', 'n_clicks'),
@@ -440,9 +442,9 @@ def render_content(tab, url, iframe_height=800):
 def update_filtered_map(n_clicks, url, filters_day, filters_time, filters_servicetype, filters_finance):
     ctx = dash.callback_context
     if not ctx.triggered:
-        filter_list = [] # Resets filters if coming in from another tab
+        filter_list = []  # Resets filters if coming in from another tab
     elif ctx.triggered[0]['prop_id'] == 'url.pathname':
-        filter_list = [] # Resets filters when changing language
+        filter_list = []  # Resets filters when changing language
     else:
         filter_list = [filters_day, filters_time, filters_servicetype, filters_finance]
     language = get_url_language(url)
